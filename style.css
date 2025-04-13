@@ -1,0 +1,373 @@
+/* Basic reset and layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #fff;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Header and Navbar styles */
+.header {
+    background-color: #fff;
+    color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 64px;
+}
+
+/* Dark mode header */
+body.dark-mode .header {
+    background-color: #000;
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 100%;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    height: 100%;
+}
+
+/* Logo styles */
+.navbar h1 {
+    margin: 0;
+    font-size: 26px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.navbar h1 a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar h1 .fa-play {
+    color: #dc3545;
+}
+
+/* Navigation menu */
+.navbar-collapse {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-collapse ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 40px;
+}
+
+.navbar-collapse li a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 8px 0;
+}
+
+.navbar-collapse li.active a {
+    color: #E31C5F;
+}
+
+.navbar-collapse .search-btn,
+.navbar-collapse .user-link {
+    display: none;
+}
+
+/* Right side items */
+.right-items {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    white-space: nowrap;
+}
+
+.right-items .search-btn {
+    background: #E31C5F;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.right-items .fa-moon,
+.right-items .fa-sun {
+    font-size: 20px;
+    color: #000;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.dark-mode .right-items .fa-moon,
+body.dark-mode .right-items .fa-sun {
+    color: #fff;
+}
+
+.right-items .fa-user {
+    font-size: 20px;
+    color: #000;
+    cursor: pointer;
+}
+
+body.dark-mode .right-items .fa-user {
+    color: #fff;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-actions .fa {
+    font-size: 20px;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* Hide toggle button on large screens */
+.navbar-toggler {
+    display: none;
+}
+
+/* Responsive styles */
+/* Tablet (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .navbar {
+        gap: 30px;
+    }
+
+    .navbar-collapse ul {
+        gap: 25px;
+    }
+
+    .navbar h1 {
+        font-size: 24px;
+    }
+
+    .navbar-collapse li a {
+        font-size: 15px;
+    }
+}
+
+/* Mobile (below 768px) */
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 0;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .navbar {
+        padding: 0 16px;
+        justify-content: space-between;
+    }
+
+    .navbar h1 {
+        font-size: 22px;
+    }
+
+    .navbar-collapse, 
+    .right-items .search-btn {
+        display: none;
+    }
+
+    .right-items {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 0;
+    }
+
+    .right-items .fa-moon,
+    .right-items .fa-sun,
+    .right-items .fa-user,
+    .navbar-toggler .fa-bars,
+    .navbar-toggler .fa-times {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .navbar-toggler {
+        display: block;
+        background: none;
+        border: none;
+        color: #000;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    body.dark-mode .navbar-toggler {
+        color: #fff;
+    }
+
+    .navbar-toggler .fa-bars {
+        display: block;
+    }
+
+    .navbar-toggler .fa-times {
+        display: none;
+    }
+
+    .navbar-toggler.collapsed .fa-bars {
+        display: none;
+    }
+
+    .navbar-toggler.collapsed .fa-times {
+        display: block;
+    }
+
+    .navbar-collapse.show {
+        display: block;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        color: #000;
+        padding: 20px;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .navbar-collapse.show {
+        background-color: #000;
+        color: #fff;
+        box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-collapse.show ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-collapse.show li {
+        width: 100%;
+    }
+
+    .navbar-collapse.show li a {
+        display: block;
+        font-size: 16px;
+        color: inherit;
+        padding: 12px 0;
+        width: 100%;
+    }
+
+    .navbar-collapse.show li.active a {
+        color: #E31C5F;
+    }
+
+    .navbar-collapse.show .search-btn {
+        display: inline-flex;
+        margin-top: 20px;
+        background: #E31C5F;
+        color: #fff;
+        padding: 12px 25px;
+        border-radius: 4px;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        font-size: 16px;
+    }
+}
+
+/* Small Mobile (below 480px) */
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .navbar {
+        padding: 0 12px;
+    }
+
+    .navbar h1 {
+        font-size: 20px;
+    }
+
+    .right-items {
+        gap: 12px;
+    }
+
+    .navbar-collapse.show {
+        padding: 16px;
+    }
+
+    .navbar-collapse.show li a {
+        font-size: 15px;
+        padding: 10px 0;
+    }
+
+    .navbar-collapse.show .search-btn {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+}
+
+
+
+
