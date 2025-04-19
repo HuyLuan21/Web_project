@@ -1,9 +1,10 @@
 // Menu Toggle Functionality
 document.addEventListener('DOMContentLoaded', function () {
     // Global variables
-    const sliderDuration = 800
+    const sliderDuration = 600
     const slideEasing = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
     let currentSlideIndex = 0
+    let currentMovieIndex = 0
 
     const slideData = [
         {
@@ -236,4 +237,131 @@ document.addEventListener('DOMContentLoaded', function () {
         sliderContainer.style.transition = 'none'
         sliderContainer.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`
     })
+
+    // Movie List Navigation
+    const movieList = document.querySelector('.movie-list')
+    const moviePrevBtn = document.querySelector('.movie-list-arrow.prev')
+    const movieNextBtn = document.querySelector('.movie-list-arrow.next')
+    const movieCards = document.querySelectorAll('.movie-card')
+
+    if (movieList && moviePrevBtn && movieNextBtn && movieCards.length > 0) {
+        // Tính số phim hiển thị mỗi lần dựa vào kích thước container
+        const calculateMoviesPerView = () => {
+            const containerWidth = movieList.parentElement.offsetWidth - 100 // Trừ padding
+            const movieWidth = movieCards[0].offsetWidth + 30 // width + gap
+            return Math.floor(containerWidth / movieWidth)
+        }
+
+        let moviesPerView = calculateMoviesPerView()
+
+        const nextMovie = () => {
+            const maxIndex = movieCards.length - moviesPerView
+            if (currentMovieIndex >= maxIndex) {
+                // Reset về đầu khi ở cuối
+                currentMovieIndex = 0
+            } else {
+                // Di chuyển theo số phim hiển thị
+                currentMovieIndex = Math.min(currentMovieIndex + moviesPerView, maxIndex)
+            }
+            const translateX = -currentMovieIndex * (movieCards[0].offsetWidth + 30)
+            movieList.style.transition = `transform ${sliderDuration}ms ${slideEasing}`
+            movieList.style.transform = `translateX(${translateX}px)`
+            updateArrowVisibility()
+        }
+
+        const prevMovie = () => {
+            if (currentMovieIndex <= 0) {
+                // Chuyển đến cuối khi ở đầu
+                currentMovieIndex = movieCards.length - moviesPerView
+            } else {
+                // Di chuyển theo số phim hiển thị
+                currentMovieIndex = Math.max(currentMovieIndex - moviesPerView, 0)
+            }
+            const translateX = -currentMovieIndex * (movieCards[0].offsetWidth + 30)
+            movieList.style.transition = `transform ${sliderDuration}ms ${slideEasing}`
+            movieList.style.transform = `translateX(${translateX}px)`
+            updateArrowVisibility()
+        }
+
+        // Kiểm tra và ẩn/hiện nút prev/next
+        const updateArrowVisibility = () => {
+            moviePrevBtn.style.opacity = currentMovieIndex <= 0 ? '0' : '1'
+            movieNextBtn.style.opacity = currentMovieIndex >= movieCards.length - moviesPerView ? '0' : '1'
+        }
+
+        movieNextBtn.addEventListener('click', nextMovie)
+        moviePrevBtn.addEventListener('click', prevMovie)
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            moviesPerView = calculateMoviesPerView()
+            // Đảm bảo currentMovieIndex không vượt quá giới hạn mới
+            currentMovieIndex = Math.min(currentMovieIndex, movieCards.length - moviesPerView)
+            const translateX = -currentMovieIndex * (movieCards[0].offsetWidth + 30)
+            movieList.style.transition = 'none'
+            movieList.style.transform = `translateX(${translateX}px)`
+            updateArrowVisibility()
+        })
+
+        // Khởi tạo trạng thái ban đầu
+        updateArrowVisibility()
+    }
+
+    // Movie Grid Carousel
+    function initializeMovieGrid() {
+        const gridContainer = document.querySelector('.movie-grid-container')
+        const grid = document.querySelector('.movie-grid')
+        const prevButton = gridContainer.querySelector('.movie-grid-arrow.prev')
+        const nextButton = gridContainer.querySelector('.movie-grid-arrow.next')
+
+        let currentPosition = 0
+        let itemsPerPage = getItemsPerPage()
+        const totalItems = grid.children.length
+
+        function getItemsPerPage() {
+            if (window.innerWidth <= 480) return 1
+            if (window.innerWidth <= 768) return 2
+            if (window.innerWidth <= 1024) return 3
+            return 4
+        }
+
+        function updateGrid() {
+            const itemWidth = grid.children[0].offsetWidth
+            const gap = parseInt(window.getComputedStyle(grid).gap)
+            const moveAmount = -(currentPosition * (itemWidth + gap))
+            grid.style.transform = `translateX(${moveAmount}px)`
+        }
+
+        function moveNext() {
+            const maxPosition = Math.ceil(totalItems / itemsPerPage) - 1
+            if (currentPosition < maxPosition) {
+                currentPosition++
+                updateGrid()
+            }
+        }
+
+        function movePrev() {
+            if (currentPosition > 0) {
+                currentPosition--
+                updateGrid()
+            }
+        }
+
+        // Event Listeners
+        nextButton.addEventListener('click', moveNext)
+        prevButton.addEventListener('click', movePrev)
+
+        // Update items per page on window resize
+        window.addEventListener('resize', () => {
+            itemsPerPage = getItemsPerPage()
+            currentPosition = 0
+            updateGrid()
+        })
+
+        // Initial setup
+        updateGrid()
+    }
+
+    // Initialize when DOM is loaded
+    initializeMovieGrid()
 })
