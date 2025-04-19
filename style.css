@@ -853,19 +853,6 @@ body {
     }
 }
 
-@media screen and (min-width: 550px) {
-    .main-slider {
-    }
-}
-@media screen and (min-width: 850px) {
-    .main-slider {
-    }
-}
-@media screen and (min-width: 1024px) {
-    .main-slider {
-    }
-}
-
 /* Footer Styles */
 .footer {
     background-color: #0f1b2b;

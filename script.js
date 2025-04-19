@@ -226,4 +226,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize dots
     initializeDots()
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        const slideList = document.querySelectorAll('.slide-wrapper')
+        const slideWidth = slideList[0].clientWidth
+
+        // Cập nhật vị trí của slider ngay lập tức không có animation
+        sliderContainer.style.transition = 'none'
+        sliderContainer.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`
+    })
 })
