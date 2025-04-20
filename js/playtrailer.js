@@ -39,21 +39,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // Video data with complete iframe code for each movie
     const trailerData = {
         'Buổi Hẹn Hò Kinh Hoàng': {
-            url: 'https://www.youtube.com/embed/PwdtJ3N8pfw',
-            params: 'si=3ce0V4onPXa41DBd&autoplay=1&rel=0',
+            videoId: 'PwdtJ3N8pfw',
         },
         'Địa Đạo: Mặt Trời Trong Bóng Tối': {
-            url: 'https://www.youtube.com/embed/7BTwfVoP4YY',
-            params: 'si=lvqqLC_AddcQwE9k&autoplay=1&rel=0',
+            videoId: '7BTwfVoP4YY',
         },
         'Tay Nghiệp Dư': {
-            url: 'https://www.youtube.com/embed/jYuAmonOUvU',
-            params: 'si=YKCDztTZHduppE1X&autoplay=1&rel=0',
+            videoId: 'c0SG_zJarME',
         },
         'Tìm Xác: Ma Không Đầu': {
-            url: 'https://www.youtube.com/embed/VbC9gQeJK7o',
-            params: 'si=WkxCRg6-DIwDJdsZ&autoplay=1&rel=0',
+            videoId: 'VbC9gQeJK7o',
         },
+    }
+
+    // Function to get clean YouTube embed URL
+    function getYouTubeEmbedUrl(videoId) {
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`
+    }
+
+    // Function to extract video ID from YouTube URL
+    function getYouTubeVideoId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+        const match = url.match(regExp)
+        return match && match[2].length === 11 ? match[2] : null
     }
 
     // Function to open modal and play video
@@ -61,7 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const iframe = document.createElement('iframe')
         iframe.style.width = '100%'
         iframe.style.height = '100%'
-        iframe.src = `${videoData.url}?${videoData.params}`
+
+        // Use the clean embed URL
+        iframe.src = getYouTubeEmbedUrl(videoData.videoId)
         iframe.title = 'YouTube video player'
         iframe.frameBorder = '0'
         iframe.allow =
@@ -74,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Show modal
         videoModal.classList.add('active')
-        document.body.style.overflow = 'hidden' // Prevent scrolling
+        document.body.style.overflow = 'hidden'
     }
 
     // Function to close modal
@@ -97,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Playing video for:', movieTitle)
                 openVideoModal(videoData)
             } else {
-                console.error('No video URL found for:', movieTitle)
+                console.error('No video found for:', movieTitle)
             }
         })
     })
