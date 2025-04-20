@@ -105,9 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close modal when clicking overlay
     modalOverlay.addEventListener('click', closeVideoModal)
 
-    // Close modal when clicking close button
-    modalClose.addEventListener('click', closeVideoModal)
-
     // Close modal when pressing Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && videoModal.classList.contains('active')) {
