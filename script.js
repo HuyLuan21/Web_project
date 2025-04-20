@@ -1,243 +1,5 @@
 // Menu Toggle Functionality
 document.addEventListener('DOMContentLoaded', function () {
-    // Global variables
-    const sliderDuration = 600
-    const slideEasing = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
-    let currentSlideIndex = 0
-    let currentMovieIndex = 0
-
-    const slideData = [
-        {
-            image: 'img/CuoiMaGiaiHan.jpg',
-            title: 'THE RED ENVELOPE: CƯỚI MÀ GIẢI HẠN',
-        },
-        {
-            image: 'img/TayNghiepDu.png',
-            title: 'THE AMATEUR: TAY NGHIỆP DƯ',
-        },
-        {
-            image: 'img/BuoiHenHoKinhHoang.jpg',
-            title: 'DROP: BUỔI HẸN HÒ KINH HOÀNG',
-        },
-        {
-            image: 'img/TaThuatHuyetNgai.jpg',
-            title: 'PANOR: TÀ THUẬT HUYẾT NGẢI',
-        },
-        {
-            image: 'img/LatMat8-VongTayTrang.png',
-            title: 'LẠT MẶT 8: VÒNG TAY TRẮNG',
-        },
-        {
-            image: 'img/ThamTuKiemm_KyAnKhongDau.jpg',
-            title: 'THÁM TỬ KIÊM: KỲ ÁN KHÔNG ĐÁNH DẤU',
-        },
-    ]
-
-    const navbarToggler = document.querySelector('.navbar-toggler')
-    const navbarCollapse = document.querySelector('.navbar-collapse')
-    const barsIcon = navbarToggler.querySelector('.fa-bars')
-    const timesIcon = navbarToggler.querySelector('.fa-times')
-
-    // Toggle mobile menu
-    navbarToggler.addEventListener('click', function () {
-        navbarCollapse.classList.toggle('show')
-        navbarToggler.classList.toggle('collapsed')
-
-        // Toggle icons
-        if (navbarCollapse.classList.contains('show')) {
-            barsIcon.style.display = 'none'
-            timesIcon.style.display = 'block'
-        } else {
-            barsIcon.style.display = 'block'
-            timesIcon.style.display = 'none'
-        }
-    })
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function (event) {
-        if (!navbarToggler.contains(event.target) && !navbarCollapse.contains(event.target)) {
-            navbarCollapse.classList.remove('show')
-            navbarToggler.classList.remove('collapsed')
-            barsIcon.style.display = 'block'
-            timesIcon.style.display = 'none'
-        }
-    })
-
-    // Close menu when clicking on a menu item
-    const navItems = document.querySelectorAll('.nav-item a')
-    navItems.forEach((item) => {
-        item.addEventListener('click', function () {
-            navbarCollapse.classList.remove('show')
-            navbarToggler.classList.remove('collapsed')
-            barsIcon.style.display = 'block'
-            timesIcon.style.display = 'none'
-        })
-    })
-
-    // Active menu item highlight
-    const currentLocation = location.href
-    const menuItems = document.querySelectorAll('.nav-item a')
-    menuItems.forEach((item) => {
-        if (item.href === currentLocation) {
-            item.parentElement.classList.add('active')
-        }
-    })
-
-    // Slider Functionality
-    const sliderContainer = document.querySelector('.slider-container')
-    const prevBtn = document.querySelector('.slider-arrow.prev')
-    const nextBtn = document.querySelector('.slider-arrow.next')
-    const dots = document.querySelectorAll('.slider-dot')
-    const slideElements = document.querySelectorAll('.slide')
-
-    // render slides
-    const slideHtmls = slideData.map((slide, index) => {
-        return `
-            <div class="slide-wrapper" data-index="${index}">
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="${slide.image}" alt="${slide.title}" />
-                    </div>
-                    <div class="slide-content">
-                        <h2 class="slide-title">${slide.title}</h2>
-                        <div class="slide-buttons"> 
-                            <a href="#" class="slide-button book-now">
-                                <i class="fas fa-ticket-alt"></i>
-                                MUA VÉ NGAY
-                            </a>
-                            <a href="#" class="slide-button more-info">
-                                <i class="fas fa-info-circle"></i>
-                                THÔNG TIN CHI TIẾT
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `
-    })
-
-    sliderContainer.innerHTML = slideHtmls.join('')
-
-    // Initialize dots
-    const dotHtmls = slideData.map((_, index) => {
-        return `<div class="slider-dot ${index === currentSlideIndex ? 'active' : ''}" data-index="${index}"></div>`
-    })
-    document.querySelector('.slider-nav').innerHTML = dotHtmls.join('')
-
-    const nextSlide = () => {
-        const slideList = document.querySelectorAll('.slide-wrapper')
-        const slideWidth = slideList[0].clientWidth
-
-        if (currentSlideIndex >= slideList.length - 1) {
-            // Khi ở slide cuối, chuẩn bị chuyển về slide đầu
-            const firstSlide = slideList[0].cloneNode(true)
-            sliderContainer.appendChild(firstSlide)
-
-            currentSlideIndex++
-            sliderContainer.style.transition = `transform ${sliderDuration}ms ${slideEasing}`
-            sliderContainer.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`
-
-            // Cập nhật dot về vị trí đầu tiên
-            updateDotActive(0)
-
-            setTimeout(() => {
-                sliderContainer.style.transition = 'none'
-                currentSlideIndex = 0
-                sliderContainer.style.transform = `translateX(0)`
-                sliderContainer.removeChild(firstSlide)
-            }, sliderDuration)
-        } else {
-            currentSlideIndex++
-            sliderContainer.style.transition = `transform ${sliderDuration}ms ${slideEasing}`
-            sliderContainer.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`
-            updateDotActive(currentSlideIndex)
-        }
-    }
-
-    const prevSlide = () => {
-        const slideList = document.querySelectorAll('.slide-wrapper')
-        const slideWidth = slideList[0].clientWidth
-
-        if (currentSlideIndex <= 0) {
-            // Khi ở slide đầu, chuẩn bị chuyển về slide cuối
-            const lastSlide = slideList[slideList.length - 1].cloneNode(true)
-            sliderContainer.insertBefore(lastSlide, slideList[0])
-
-            sliderContainer.style.transition = 'none'
-            sliderContainer.style.transform = `translateX(-${slideWidth}px)`
-
-            // Cập nhật dot về vị trí cuối cùng
-            updateDotActive(slideList.length - 1)
-
-            setTimeout(() => {
-                sliderContainer.style.transition = `transform ${sliderDuration}ms ${slideEasing}`
-                sliderContainer.style.transform = 'translateX(0)'
-
-                setTimeout(() => {
-                    sliderContainer.style.transition = 'none'
-                    currentSlideIndex = slideList.length - 1
-                    sliderContainer.removeChild(lastSlide)
-                    sliderContainer.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`
-                }, sliderDuration)
-            }, 50)
-        } else {
-            currentSlideIndex--
-            sliderContainer.style.transition = `transform ${sliderDuration}ms ${slideEasing}`
-            sliderContainer.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`
-            updateDotActive(currentSlideIndex)
-        }
-    }
-
-    // Event listeners for buttons
-    nextBtn.addEventListener('click', nextSlide)
-    prevBtn.addEventListener('click', prevSlide)
-
-    // Update dots
-    function updateDotActive(index) {
-        const dots = document.querySelectorAll('.slider-dot')
-        const totalSlides = slideData.length
-
-        // Đảm bảo index nằm trong khoảng hợp lệ
-        const normalizedIndex = ((index % totalSlides) + totalSlides) % totalSlides
-
-        dots.forEach((dot, i) => {
-            if (i === normalizedIndex) {
-                dot.classList.add('active')
-            } else {
-                dot.classList.remove('active')
-            }
-        })
-    }
-
-    // Initialize dots
-    function initializeDots() {
-        const dots = document.querySelectorAll('.slider-dot')
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                const slideList = document.querySelectorAll('.slide-wrapper')
-                const slideWidth = slideList[0].clientWidth
-
-                currentSlideIndex = index
-                sliderContainer.style.transition = `transform ${sliderDuration}ms ${slideEasing}`
-                sliderContainer.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`
-                updateDotActive(currentSlideIndex)
-            })
-        })
-    }
-
-    // Initialize dots
-    initializeDots()
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        const slideList = document.querySelectorAll('.slide-wrapper')
-        const slideWidth = slideList[0].clientWidth
-
-        // Cập nhật vị trí của slider ngay lập tức không có animation
-        sliderContainer.style.transition = 'none'
-        sliderContainer.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`
-    })
-
     // Movie List Navigation
     const movieList = document.querySelector('.movie-list')
     const moviePrevBtn = document.querySelector('.movie-list-arrow.prev')
@@ -307,42 +69,53 @@ document.addEventListener('DOMContentLoaded', function () {
         updateArrowVisibility()
     }
 
-    // Movie Grid Carousel
+    // Movie Grid Navigation
     function initializeMovieGrid() {
         const gridContainer = document.querySelector('.movie-grid-container')
         const grid = document.querySelector('.movie-grid')
-        const prevButton = gridContainer.querySelector('.movie-grid-arrow.prev')
-        const nextButton = gridContainer.querySelector('.movie-grid-arrow.next')
+        const prevButton = document.querySelector('.movie-grid-arrow.prev')
+        const nextButton = document.querySelector('.movie-grid-arrow.next')
+        const dots = document.querySelectorAll('.dot')
 
-        let currentPosition = 0
+        if (!grid || !prevButton || !nextButton) return
+
+        let currentPage = 0
         let itemsPerPage = getItemsPerPage()
         const totalItems = grid.children.length
+        const totalPages = Math.ceil(totalItems / itemsPerPage)
 
         function getItemsPerPage() {
             if (window.innerWidth <= 480) return 1
             if (window.innerWidth <= 768) return 2
-            if (window.innerWidth <= 1024) return 3
+
             return 4
         }
 
         function updateGrid() {
-            const itemWidth = grid.children[0].offsetWidth
-            const gap = parseInt(window.getComputedStyle(grid).gap)
-            const moveAmount = -(currentPosition * (itemWidth + gap))
-            grid.style.transform = `translateX(${moveAmount}px)`
+            // Move grid to current page
+            grid.style.transition = 'transform 0.5s ease'
+            grid.style.transform = `translateX(-${currentPage * 100}%)`
+
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentPage)
+            })
+
+            // Update buttons
+            prevButton.style.opacity = currentPage === 0 ? '0.5' : '1'
+            nextButton.style.opacity = currentPage === totalPages - 1 ? '0.5' : '1'
         }
 
         function moveNext() {
-            const maxPosition = Math.ceil(totalItems / itemsPerPage) - 1
-            if (currentPosition < maxPosition) {
-                currentPosition++
+            if (currentPage < totalPages - 1) {
+                currentPage++
                 updateGrid()
             }
         }
 
         function movePrev() {
-            if (currentPosition > 0) {
-                currentPosition--
+            if (currentPage > 0) {
+                currentPage--
                 updateGrid()
             }
         }
@@ -351,11 +124,22 @@ document.addEventListener('DOMContentLoaded', function () {
         nextButton.addEventListener('click', moveNext)
         prevButton.addEventListener('click', movePrev)
 
-        // Update items per page on window resize
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentPage = index
+                updateGrid()
+            })
+        })
+
+        // Handle window resize
         window.addEventListener('resize', () => {
-            itemsPerPage = getItemsPerPage()
-            currentPosition = 0
-            updateGrid()
+            const newItemsPerPage = getItemsPerPage()
+            if (newItemsPerPage !== itemsPerPage) {
+                itemsPerPage = newItemsPerPage
+                currentPage = 0
+                updateGrid()
+            }
         })
 
         // Initial setup
@@ -364,4 +148,157 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize when DOM is loaded
     initializeMovieGrid()
+})
+
+// Combo Grid Navigation
+const comboGrid = document.querySelector('.combo-grid')
+const comboPrevBtn = document.querySelector('.combo-grid-arrow.prev')
+const comboNextBtn = document.querySelector('.combo-grid-arrow.next')
+const comboDots = document.querySelector('.combo-grid-dots')
+let comboCurrentPage = 0
+let comboItemsPerPage = getComboItemsPerPage()
+
+function getComboItemsPerPage() {
+    if (window.innerWidth <= 480) return 1
+    if (window.innerWidth <= 992) return 2
+    if (window.innerWidth <= 1200) return 3
+    return 4
+}
+
+function initComboGrid() {
+    const comboCards = document.querySelectorAll('.combo-card')
+    const totalPages = Math.ceil(comboCards.length / comboItemsPerPage)
+
+    // Create dots
+    comboDots.innerHTML = ''
+    for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button')
+        dot.classList.add('dot')
+        if (i === 0) dot.classList.add('active')
+        dot.addEventListener('click', () => {
+            comboCurrentPage = i
+            updateComboGrid()
+        })
+        comboDots.appendChild(dot)
+    }
+
+    updateComboGrid()
+    updateComboButtons()
+}
+
+function updateComboGrid() {
+    const comboCards = document.querySelectorAll('.combo-card')
+    const startIndex = comboCurrentPage * comboItemsPerPage
+    const endIndex = startIndex + comboItemsPerPage
+
+    comboCards.forEach((card, index) => {
+        if (index >= startIndex && index < endIndex) {
+            card.style.display = 'block'
+        } else {
+            card.style.display = 'none'
+        }
+    })
+
+    // Update dots
+    const dots = comboDots.querySelectorAll('.dot')
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === comboCurrentPage)
+    })
+
+    updateComboButtons()
+}
+
+function updateComboButtons() {
+    const comboCards = document.querySelectorAll('.combo-card')
+    const totalPages = Math.ceil(comboCards.length / comboItemsPerPage)
+
+    comboPrevBtn.style.visibility = comboCurrentPage === 0 ? 'hidden' : 'visible'
+    comboNextBtn.style.visibility = comboCurrentPage >= totalPages - 1 ? 'hidden' : 'visible'
+}
+
+// Event Listeners
+comboPrevBtn.addEventListener('click', () => {
+    if (comboCurrentPage > 0) {
+        comboCurrentPage--
+        updateComboGrid()
+    }
+})
+
+comboNextBtn.addEventListener('click', () => {
+    const comboCards = document.querySelectorAll('.combo-card')
+    const totalPages = Math.ceil(comboCards.length / comboItemsPerPage)
+    if (comboCurrentPage < totalPages - 1) {
+        comboCurrentPage++
+        updateComboGrid()
+    }
+})
+
+window.addEventListener('resize', () => {
+    const newItemsPerPage = getComboItemsPerPage()
+    if (newItemsPerPage !== comboItemsPerPage) {
+        comboItemsPerPage = newItemsPerPage
+        comboCurrentPage = 0
+        initComboGrid()
+    }
+})
+
+// Initialize combo grid when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initComboGrid()
+})
+
+// Video Modal Functionality
+document.addEventListener('DOMContentLoaded', function () {
+    const videoModal = document.querySelector('.video-modal')
+    const videoModalOverlay = document.querySelector('.video-modal-overlay')
+    const videoModalClose = document.querySelector('.video-modal-close')
+    const trailerFrame = document.getElementById('trailer-frame')
+    const playButtons = document.querySelectorAll('.play-button')
+
+    // Open modal with specific trailer
+    function openVideoModal(videoId) {
+        if (!videoId) return
+
+        const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
+        console.log('Opening video with URL:', embedUrl)
+
+        trailerFrame.src = embedUrl
+        videoModal.classList.add('active')
+        document.body.style.overflow = 'hidden'
+    }
+
+    // Close modal
+    function closeVideoModal() {
+        videoModal.classList.remove('active')
+        trailerFrame.src = ''
+        document.body.style.overflow = ''
+    }
+
+    // Add click event to play buttons
+    playButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+
+            const videoId = button.dataset.videoId
+            console.log('Video ID from data attribute:', videoId)
+
+            if (videoId) {
+                openVideoModal(videoId)
+            } else {
+                console.error('No video ID found on button')
+            }
+        })
+    })
+
+    // Close modal events
+    videoModalOverlay?.addEventListener('click', closeVideoModal)
+    videoModalClose?.addEventListener('click', closeVideoModal)
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeVideoModal()
+        }
+    })
 })
