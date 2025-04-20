@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <script src="js/playtrailer.js"></script>
+        <script src="js/slider.js"></script>
     </head>
 
     <body>
@@ -62,7 +64,7 @@
         <!-- Movie Grid Section -->
         <section id="now-showing" class="movie-grid-section">
             <div class="container">
-                <h2 class="section-title">Popular Movies</h2>
+                <h2 class="section-title">NOW SHOWING</h2>
                 <div class="movie-grid-container">
                     <div class="movie-grid">
                         <!-- Movie Card 1 -->
@@ -74,10 +76,10 @@
                                 </div>
                             </div>
                             <div class="movie-info">
-                                <h3 class="movie-title">The First Movie</h3>
+                                <h3 class="movie-title">Buổi Hẹn Hò Kinh Hoàng</h3>
                                 <div class="movie-meta">
-                                    <span>2023</span>
-                                    <span>Action</span>
+                                    <span>2025</span>
+                                    <span>Drama</span>
                                 </div>
                                 <a href="#" class="movie-button">Book Now</a>
                             </div>
@@ -91,10 +93,10 @@
                                 </div>
                             </div>
                             <div class="movie-info">
-                                <h3 class="movie-title">The Second Movie</h3>
+                                <h3 class="movie-title">Địa Đạo: Mặt Trời Trong Bóng Tối</h3>
                                 <div class="movie-meta">
-                                    <span>2023</span>
-                                    <span>Drama</span>
+                                    <span>2025</span>
+                                    <span>History</span>
                                 </div>
                                 <a href="#" class="movie-button">Book Now</a>
                             </div>
@@ -108,10 +110,10 @@
                                 </div>
                             </div>
                             <div class="movie-info">
-                                <h3 class="movie-title">The Third Movie</h3>
+                                <h3 class="movie-title">Tay Nghiệp Dư</h3>
                                 <div class="movie-meta">
-                                    <span>2023</span>
-                                    <span>Comedy</span>
+                                    <span>2025</span>
+                                    <span>Action</span>
                                 </div>
                                 <a href="#" class="movie-button">Book Now</a>
                             </div>
@@ -125,10 +127,10 @@
                                 </div>
                             </div>
                             <div class="movie-info">
-                                <h3 class="movie-title">The Fourth Movie</h3>
+                                <h3 class="movie-title">Tìm Xác: Ma Không Đầu</h3>
                                 <div class="movie-meta">
-                                    <span>2023</span>
-                                    <span>Adventure</span>
+                                    <span>2025</span>
+                                    <span>Horror</span>
                                 </div>
                                 <a href="#" class="movie-button">Book Now</a>
                             </div>
@@ -232,7 +234,6 @@
                 </div>
             </div>
         </section>
-
         <footer class="footer">
             <div class="container">
                 <div class="footer-content">
@@ -274,5 +275,15 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Video Modal -->
+        <div class="video-modal">
+            <div class="video-modal-overlay"></div>
+            <div class="video-modal-container">
+                <div class="video-modal-content">
+                    <div id="video-container"></div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
