@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
         <link rel="stylesheet" href="css/login.css" />
+        <script type="module" src="js/login.js"></script>
         <title>Đăng nhập và Đăng ký</title>
-        <style></style>
     </head>
     <body>
         <header class="header">
@@ -17,11 +17,11 @@
 
                 <div class="navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav-menu">
-                        <li class="nav-item"><a href="#now-showing" class="active">NOW SHOWING</a></li>
-                        <li class="nav-item"><a href="#combo">ĐỒ ĂN/COMBO</a></li>
-                        <li class="nav-item"><a href="#">KHUYẾN MÃI</a></li>
-                        <li class="nav-item"><a href="#">DỊCH VỤ</a></li>
-                        <li class="nav-item"><a href="#">VỀ CINEMON</a></li>
+                        <li class="nav-item"><a href="index.html#now-showing">NOW SHOWING</a></li>
+                        <li class="nav-item"><a href="index.html#combo">ĐỒ ĂN/COMBO</a></li>
+                        <li class="nav-item"><a href="index.html#promotion">KHUYẾN MÃI</a></li>
+                        <li class="nav-item"><a href="">DỊCH VỤ</a></li>
+                        <li class="nav-item"><a href="">VỀ CINEMON</a></li>
                     </ul>
                 </div>
 
@@ -35,7 +35,7 @@
                 </div>
             </nav>
         </header>
-        <div class="container">
+        <div class="main-container">
             <!-- Login Form -->
             <div class="form-container">
                 <h2>Đăng nhập tài khoản</h2>
@@ -53,6 +53,8 @@
                         </div>
                     </div>
 
+                    <div class="error-message" style="display: none"></div>
+
                     <button type="submit" class="submit-button">Đăng nhập</button>
                 </form>
             </div>
@@ -60,7 +62,7 @@
             <!-- Registration Form -->
             <div class="form-container">
                 <h2>Đăng ký tài khoản</h2>
-                <form>
+                <form id="register-form">
                     <div class="form-group">
                         <label for="lastname" class="required">Họ</label>
                         <input type="text" id="lastname" />
@@ -115,34 +117,22 @@
                             <div class="date-select">
                                 <select id="day">
                                     <option value="">Chọn ngày</option>
-                                    <!-- Days would be populated here -->
                                 </select>
                             </div>
                             <div class="date-select">
                                 <select id="month">
                                     <option value="">Chọn tháng</option>
-                                    <!-- Months would be populated here -->
                                 </select>
                             </div>
                             <div class="date-select">
                                 <select id="year">
                                     <option value="">Chọn năm</option>
-                                    <!-- Years would be populated here -->
                                 </select>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="province" class="required">Tỉnh/Thành phố</label>
-                        <select id="province">
-                            <option value="">Chọn Tỉnh/Thành phố</option>
-                            <!-- Provinces would be populated here -->
-                        </select>
-                    </div>
-
                     <div class="checkbox-group">
-                        <input type="checkbox" id="terms" checked />
+                        <input type="checkbox" id="terms" />
                         <label for="terms"
                             >Tôi đã đọc, hiểu và đồng ý với các <a href="#" class="terms-link">điều khoản</a></label
                         >
@@ -153,7 +143,7 @@
                         <label for="newsletter">Nhận thông tin chương trình khuyến mãi</label>
                     </div>
 
-                    <div class="error-message"><span class="error-icon">⨯</span> Lỗi: Họ là mục bắt buộc.</div>
+                    <div class="error-message" style="display: none"></div>
 
                     <button type="submit" class="submit-button">Đăng ký</button>
                 </form>

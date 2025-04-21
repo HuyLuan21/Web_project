@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: sans-serif;
 }
 
 :root {
@@ -36,6 +36,9 @@ a {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.auth-button {
+    display: none;
+}
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -96,7 +99,9 @@ a {
     transition: color 0.3s ease;
     position: relative;
 }
-
+.auth-button {
+    display: none;
+}
 .nav-menu .nav-item a::after {
     content: '';
     position: absolute;
@@ -141,6 +146,7 @@ a {
 .fa-solid.fa-user {
     color: #fff;
     font-size: 20px;
+    display: none;
 }
 
 .navbar-toggler {
@@ -162,7 +168,7 @@ a {
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    gap: 40px;
+    gap: 20px;
     padding: 0 24px;
 }
 
@@ -244,7 +250,7 @@ input[type='radio'] {
 
 select {
     width: 100%;
-    height: 42px;
+
     background-color: white;
 }
 
@@ -385,7 +391,9 @@ select {
     .navbar-toggler.active .fa-times {
         display: inline;
     }
-
+    .fa-solid.fa-user {
+        display: block;
+    }
     .date-selects {
         flex-wrap: wrap;
     }

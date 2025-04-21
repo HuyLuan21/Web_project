@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const sliderDuration = 600
     const slideEasing = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
     let currentSlideIndex = 0
-    let currentMovieIndex = 0
 
     const slideData = [
         {
@@ -100,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="slide-content">
                         <h2 class="slide-title">${slide.title}</h2>
                         <div class="slide-buttons"> 
-                            <a href="#" class="slide-button book-now">
+                            <a href="seatselect.html" class="slide-button book-now">
                                 <i class="fas fa-ticket-alt"></i>
                                 MUA VÉ NGAY
                             </a>

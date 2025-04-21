@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <link rel="stylesheet" href="css/seat.css" />
+        <script type="module" src="js/seat.js"></script>
+        <title>Đăng nhập và Đăng ký</title>
+    </head>
+    <body>
+        <header class="header">
+            <nav class="navbar container">
+                <h1 class="logo">
+                    <a href="index.html"> <i class="fa-solid fa-play"></i>CINEMON </a>
+                </h1>
+
+                <div class="navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="index.html#now-showing">NOW SHOWING</a></li>
+                        <li class="nav-item"><a href="index.html#combo">ĐỒ ĂN/COMBO</a></li>
+                        <li class="nav-item"><a href="index.html#promotion">KHUYẾN MÃI</a></li>
+                        <li class="nav-item"><a href="">DỊCH VỤ</a></li>
+                        <li class="nav-item"><a href="">VỀ CINEMON</a></li>
+                    </ul>
+                </div>
+
+                <div class="right-items">
+                    <a href="login.html" class="fa-solid fa-user"></a>
+                    <a href="login.html" class="auth-button">Đăng nhập/Đăng ký</a>
+                    <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <div class="main-container">
+            <!-- Thông tin phim -->
+            <div class="movie-info">
+                <div class="movie-details">
+                    <h2></h2>
+                    <p><i class="fas fa-film"></i>Rạp: CINEMON Huế</p>
+                    <p><i class="far fa-clock"></i>Suất chiếu: <span id="time-select-text">20:30 - 22:40</span></p>
+                    <p><i class="fas fa-door-open"></i>Phòng chiếu: P01</p>
+                </div>
+            </div>
+            <div class="time-select">
+                <div class="time-select-item">
+                    <ul>
+                        <li class="time-select-item-btn">20:30</li>
+                        <li class="time-select-item-btn">22:45</li>
+                        <li class="time-select-item-btn">22:45</li>
+                        <li class="time-select-item-btn">22:45</li>
+                        <li class="time-select-item-btn">22:45</li>
+                        <li class="time-select-item-btn">22:45</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Khu vực màn hình -->
+            <div class="screen-area">
+                <div class="screen">
+                    <span>MÀN HÌNH</span>
+                </div>
+            </div>
+
+            <!-- Khu vực ghế -->
+            <div class="seat-area">
+                <!-- Chú thích ghế -->
+                <div class="seat-legend">
+                    <div class="legend-item">
+                        <div class="seat available"></div>
+                        <span>Ghế trống</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="seat selected guigde"></div>
+                        <span>Ghế đang chọn</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="seat occupied"></div>
+                        <span>Ghế đã đặt</span>
+                    </div>
+                </div>
+
+                <!-- Khu vực ghế -->
+                <div class="seat-container">
+                    <!-- Hàng A -->
+                    <div class="seat-row">
+                        <div class="row-label">A</div>
+                        <div class="seats">
+                            <div class="seat" data-seat="A1">A1</div>
+                            <div class="seat" data-seat="A2">A2</div>
+                            <div class="seat" data-seat="A3">A3</div>
+                            <div class="seat" data-seat="A4">A4</div>
+                            <div class="seat" data-seat="A5">A5</div>
+                            <div class="seat" data-seat="A6">A6</div>
+                            <div class="seat" data-seat="A7">A7</div>
+                            <div class="seat" data-seat="A8">A8</div>
+                        </div>
+                    </div>
+
+                    <!-- Hàng B -->
+                    <div class="seat-row">
+                        <div class="row-label">B</div>
+                        <div class="seats">
+                            <div class="seat" data-seat="B1">B1</div>
+                            <div class="seat" data-seat="B2">B2</div>
+                            <div class="seat" data-seat="B3">B3</div>
+                            <div class="seat" data-seat="B4">B4</div>
+                            <div class="seat" data-seat="B5">B5</div>
+                            <div class="seat" data-seat="B6">B6</div>
+                            <div class="seat" data-seat="B7">B7</div>
+                            <div class="seat" data-seat="B8">B8</div>
+                        </div>
+                    </div>
+
+                    <!-- Hàng C -->
+                    <div class="seat-row">
+                        <div class="row-label">C</div>
+                        <div class="seats">
+                            <div class="seat" data-seat="C1">C1</div>
+                            <div class="seat" data-seat="C2">C2</div>
+                            <div class="seat" data-seat="C3">C3</div>
+                            <div class="seat" data-seat="C4">C4</div>
+                            <div class="seat" data-seat="C5">C5</div>
+                            <div class="seat" data-seat="C6">C6</div>
+                            <div class="seat" data-seat="C7">C7</div>
+                            <div class="seat" data-seat="C8">C8</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin đặt vé -->
+                <div class="booking-info">
+                    <div class="selected-seats">
+                        <h3>Ghế đã chọn: <span id="selected-seats-text">Chưa chọn ghế</span></h3>
+                    </div>
+                    <div class="price-info">
+                        <div class="price-row">
+                            <span>Giá vé:</span>
+                            <span>90.000đ/ghế</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Số lượng:</span>
+                            <span id="seat-count">0 ghế</span>
+                        </div>
+                        <div class="price-total">
+                            <span>Tổng tiền:</span>
+                            <span id="total-price">0đ</span>
+                        </div>
+                    </div>
+                    <button class="continue-btn" id="continue-btn" disabled>Tiếp tục</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
