@@ -7,6 +7,10 @@
 
 :root {
     --header-height: 50px;
+    --primary-color: #7ac142;
+    --primary-dark: #7ba832;
+    --header-bg: #0f1b2b;
+    --error-color: #e74c3c;
 }
 
 a {
@@ -412,8 +416,8 @@ body {
     display: block;
     width: 100%;
     padding: 10px;
-    background: #e31c5f;
     color: #fff;
+    background-color: var(--primary-color);
     text-align: center;
     border-radius: 4px;
     text-decoration: none;
@@ -423,7 +427,7 @@ body {
 }
 
 .movie-button:hover {
-    background: #c4184f;
+    background-color: var(--primary-dark);
 }
 
 .movie-list-arrow {
@@ -734,7 +738,7 @@ body {
 }
 
 .slide-button.book-now {
-    background-color: #e31c5f;
+    background-color: var(--primary-color);
     color: #fff;
 }
 
@@ -761,7 +765,7 @@ body {
 }
 
 .slider-dot.active {
-    background: #e31c5f;
+    background: var(--primary-color);
 }
 
 .slider-arrow {
@@ -855,7 +859,7 @@ body {
     display: block;
     width: 100%;
     padding: 10px;
-    background: #e31c5f;
+    background: var(--primary-color);
     color: #fff;
     text-align: center;
     border-radius: 4px;
@@ -865,7 +869,7 @@ body {
 }
 
 .movie-button:hover {
-    background: #c4184f;
+    background: var(--primary-dark);
 }
 
 /* Responsive styles for Popular Movies */
@@ -1105,7 +1109,7 @@ body {
     display: block;
     width: 100%;
     padding: 10px;
-    background: #e31c5f;
+    background: var(--primary-color);
     color: #fff;
     text-align: center;
     border-radius: 4px;
@@ -1115,7 +1119,7 @@ body {
 }
 
 .movie-button:hover {
-    background: #c4184f;
+    background: var(--primary-dark);
 }
 
 /* Navigation */
@@ -1165,7 +1169,7 @@ body {
 }
 
 .dot.active {
-    background: #e31c5f;
+    background: var(--primary-color);
     transform: scale(1.2);
 }
 
@@ -1291,7 +1295,7 @@ body {
     display: block;
     width: 100%;
     padding: 12px;
-    background: #e31c5f;
+    background: var(--primary-color);
     color: #fff;
     text-align: center;
     border-radius: 4px;
@@ -1301,7 +1305,7 @@ body {
 }
 
 .combo-button:hover {
-    background: #c4184f;
+    background: var(--primary-dark);
 }
 
 /* Combo Navigation */
@@ -1472,7 +1476,7 @@ body {
 }
 
 .video-modal-close:hover {
-    background: #c4184f;
+    background: var(--primary-dark);
     transform: scale(1.1);
 }
 

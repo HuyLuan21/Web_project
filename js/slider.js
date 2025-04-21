@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <i class="fas fa-ticket-alt"></i>
                                 MUA VÉ NGAY
                             </a>
-                            <a href="#" class="slide-button more-info">
+                            <a href="detail.html" class="slide-button more-info">
                                 <i class="fas fa-info-circle"></i>
                                 THÔNG TIN CHI TIẾT
                             </a>
