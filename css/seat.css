@@ -325,8 +325,6 @@ a {
 .screen {
     height: 70px;
     background: linear-gradient(to bottom, #666, transparent);
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
     position: relative;
     display: flex;
     align-items: center;
@@ -510,10 +508,10 @@ a {
 .time-select-item ul {
     display: flex;
     list-style: none;
-    align-items: center;
-    justify-content: center;
     gap: 10px;
     padding: 20px;
+    align-items: center;
+    overflow-x: auto;
 }
 
 .time-select-item ul li {

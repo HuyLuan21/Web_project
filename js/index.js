@@ -1,6 +1,12 @@
 const bookNowBtns = document.querySelectorAll('.movie-button')
 const locationSelect = document.querySelector('.location-select select')
 
+const movies = [
+    {
+        //
+    },
+]
+
 bookNowBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         const parentElement = e.target.parentElement

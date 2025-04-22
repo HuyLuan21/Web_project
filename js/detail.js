@@ -1,3 +1,34 @@
+const trailer = [
+    {
+        title: 'Buoi Hen Ho Kinh Hoang',
+        videoId:
+            '<iframe width="560" height="315" src="https://www.youtube.com/embed/PwdtJ3N8pfw?si=3ce0V4onPXa41DBd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+    },
+    {
+        title: 'Dia Dao Mat Troi Trong Bong Toi',
+        videoId:
+            '<iframe width="560" height="315" src="https://www.youtube.com/embed/7BTwfVoP4YY?si=lvqqLC_AddcQwE9k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+    },
+    {
+        title: 'Tay Nghiep Du',
+        videoId:
+            '<iframe width="560" height="315" src="https://www.youtu<iframe width="560" height="315" src="https://www.youtube.com/embed/7BTwfVoP4YY?si=lvqqLC_AddcQwE9k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>be.com/embed/jYuAmonOUvU?si=YKCDztTZHduppE1X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+    },
+    {
+        title: 'Tim Xac Ma Khong Dau',
+        videoId:
+            '<iframe width="560" height="315" src="https://www.youtube.com/embed/VbC9gQeJK7o?si=WkxCRg6-DIwDJdsZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+    },
+]
+
+const trailerContainer = document.querySelector('.trailer-container')
+
+trailer.forEach((trailer) => {
+    const trailerItem = document.createElement('div')
+    trailerItem.classList.add('trailer-item')
+    trailerItem.innerHTML = trailer.videoId
+})
+
 document.addEventListener('DOMContentLoaded', () => {
     const videoModal = document.querySelector('.video-modal')
     const videoContainer = document.getElementById('video-container')
