@@ -59,8 +59,8 @@ function displayMovies() {
         .slice(0, currentMovies)
         .map((movie) => {
             return `
-             <div class="movie-card">
-                 <div class="movie-poster">
+        <div class="movie-card">
+            <div class="movie-poster">
                 <img src="${movie.image}" alt="${movie.name}" />
                 <div class="play-button" data-video-id="${movie.videoId}">
                     <i class="fas fa-play"></i>
