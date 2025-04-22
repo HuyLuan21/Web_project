@@ -38,17 +38,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Video data with complete iframe code for each movie
     const trailerData = {
-        'Buổi Hẹn Hò Kinh Hoàng': {
-            videoId: 'PwdtJ3N8pfw',
+        'DROP: BUỔI HẸN KINH HOÀNG': {
+            videoId: 'cQ1eYm_XIcA',
         },
-        'Địa Đạo: Mặt Trời Trong Bóng Tối': {
-            videoId: '7BTwfVoP4YY',
+        'LẬT MẶT 8: VÒNG TAY NẮNG': {
+            videoId: 'hUlBTt3NyGI',
         },
-        'Tay Nghiệp Dư': {
+        'TAY NGHIỆP DƯ': {
             videoId: 'c0SG_zJarME',
         },
-        'Tìm Xác: Ma Không Đầu': {
-            videoId: 'VbC9gQeJK7o',
+        'PANOR : TÀ THUẬT HUYẾT NGẢI': {
+            videoId: '3pciNGgdY_g',
         },
     }
 

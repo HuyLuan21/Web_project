@@ -54,14 +54,13 @@ loginBtn.onclick = () => {
     const existingUser = users.find((user) => user.email === email && user.password === password)
 
     if (existingUser) {
-        alert('Đăng nhập thành công')
-
         sessionStorage.setItem('user', JSON.stringify(existingUser))
-
+        console.log(existingUser)
         if (email === 'admin@gmail.com') {
             window.location.href = 'admin.html'
         } else {
             window.location.href = 'index.html'
+            console.log('Đã điều hướng tới index.html')
         }
     } else {
         alert('Email hoặc mật khẩu không chính xác')

@@ -1,4 +1,5 @@
 const movieTitle = document.querySelector('.movie-details h2')
+const movieLocation = document.querySelector('#location')
 const seatBtns = document.querySelectorAll('.seat:not(.available):not(.occupied):not(.guigde)')
 const timeSelectItem = document.querySelectorAll('.time-select-item-btn')
 const timeSelectText = document.querySelector('#time-select-text')
@@ -7,7 +8,7 @@ const title = urlParams.get('title')
 const location = urlParams.get('location')
 
 movieTitle.textContent = title
-
+movieLocation.textContent = location
 seatBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         console.log(e.target.dataset?.seat?.slice(0, 1))
@@ -39,7 +40,7 @@ seatBtns.forEach((btn) => {
 
         if (e.target.classList.contains('selected')) {
             timeout = setTimeout(() => {
-                alert('Hello world')
+                alert('Thời gian giữ ghế đã hết.')
             }, holdTime)
         } else {
             clearTimeout(timeout)
