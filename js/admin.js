@@ -98,21 +98,6 @@ function renderDashboard(container) {
 }
 
 // Giả lập dữ liệu phim (sau này sẽ lấy từ backend)
-const mockMovies = [
-    {
-        id: 1,
-        name: 'Avengers: Endgame',
-        director: 'Anthony Russo, Joe Russo',
-        cast: 'Robert Downey Jr., Chris Evans, Mark Ruffalo',
-        genre: 'Hành động, Khoa học viễn tưởng',
-        duration: 181,
-        description:
-            'Biệt đội Avengers còn sót lại và các đồng minh của họ phải tập hợp một lần nữa để đảo ngược những thiệt hại mà Thanos đã gây ra.',
-        image: 'avengers.jpg',
-        videoId: 'TcMBFSGVi1c',
-    },
-    // Thêm phim mẫu khác nếu cần
-]
 
 function renderMovieManagement(container) {
     // Chuẩn hóa dữ liệu phim cũ
@@ -138,45 +123,45 @@ function renderMovieManagement(container) {
                 <form id="movieForm" class="add-movie-form">
                     <input type="hidden" id="movieId" name="id">
                     <div class="form-group">
-                        <label for="movieName">Tên phim *</label>
+                        <label for="movieName">Tên phim </label>
                         <input type="text" id="movieName" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="movieImage">Hình ảnh (URL) *</label>
+                        <label for="movieImage">Hình ảnh (URL) </label>
                         <input type="text" id="movieImage" name="image" required placeholder="img/ten-phim.jpg" 
                                onchange="previewImage(this.value)">
                         <div id="currentImage" class="preview-container"></div>
                     </div>
                     <div class="form-group">
-                        <label for="movieVideoId">Video ID (YouTube) *</label>
+                        <label for="movieVideoId">Video ID (YouTube) </label>
                         <input type="text" id="movieVideoId" name="videoId" required 
                                placeholder="Ví dụ: c0SG_zJarME"
                                onchange="validateYouTubeId(this.value)">
                         <div id="videoPreview" class="preview-container"></div>
                     </div>
                     <div class="form-group">
-                        <label for="movieYear">Năm phát hành *</label>
+                        <label for="movieYear">Năm phát hành </label>
                         <input type="number" id="movieYear" name="year" required min="1900" max="2100">
                     </div>
                     <div class="form-group">
-                        <label for="movieDuration">Thời lượng (phút) *</label>
+                        <label for="movieDuration">Thời lượng (phút) </label>
                         <input type="number" id="movieDuration" name="duration" required min="1" max="999" 
                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
                     <div class="form-group">
-                        <label for="movieGenre">Thể loại *</label>
+                        <label for="movieGenre">Thể loại </label>
                         <input type="text" id="movieGenre" name="genre" required>
                     </div>
                     <div class="form-group">
-                        <label for="movieDirector">Đạo diễn *</label>
+                        <label for="movieDirector">Đạo diễn </label>
                         <input type="text" id="movieDirector" name="director" required>
                     </div>
                     <div class="form-group">
-                        <label for="movieCast">Diễn viên *</label>
+                        <label for="movieCast">Diễn viên </label>
                         <input type="text" id="movieCast" name="cast" required>
                     </div>
                     <div class="form-group">
-                        <label for="movieDescription">Mô tả *</label>
+                        <label for="movieDescription">Mô tả </label>
                         <textarea id="movieDescription" name="description" required rows="4"></textarea>
                     </div>
                     <div class="form-actions">

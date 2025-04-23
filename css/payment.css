@@ -4,7 +4,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+:root {
+    --primary-color: #7ac142;
+}
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -37,7 +39,7 @@ body {
 }
 
 .logo i {
-    color: #e50914;
+    color: var(--primary-color);
     margin-right: 0.5rem;
 }
 

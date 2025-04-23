@@ -178,11 +178,32 @@ function displayMovies() {
         loadMoreButton.style.display = 'none'
     } else {
         loadMoreButton.style.display = 'block'
+        loadMoreButton.style.margin = '2rem auto'
+        loadMoreButton.style.padding = '1rem 2rem'
+        loadMoreButton.style.background = 'var(--primary-color)'
+        loadMoreButton.style.color = 'white'
+        loadMoreButton.style.border = 'none'
+        loadMoreButton.style.borderRadius = '4px'
+        loadMoreButton.style.fontSize = '1rem'
+        loadMoreButton.style.cursor = 'pointer'
+        loadMoreButton.style.transition = 'background-color 0.3s ease'
     }
 
     // Chỉ hiện nút ẩn khi số phim hiện tại lớn hơn số phim tối thiểu
     if (currentMovies > minMovies) {
         hideButton.style.display = 'block'
+        hideButton.style.margin = '2rem auto'
+        hideButton.style.padding = '1rem 2rem'
+        hideButton.style.background = '#333'
+        hideButton.style.color = 'white'
+        hideButton.style.border = 'none'
+        hideButton.style.borderRadius = '4px'
+        hideButton.style.fontSize = '1rem'
+        hideButton.style.cursor = 'pointer'
+        hideButton.style.transition = 'background-color 0.3s ease'
+        hideButton.style.display = 'flex'
+        hideButton.style.justifyContent = 'center'
+        hideButton.style.alignItems = 'center'
     } else {
         hideButton.style.display = 'none'
     }

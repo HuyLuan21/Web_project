@@ -1,6 +1,6 @@
 const registerBtn = document.querySelector('.register-button')
 const loginBtn = document.querySelector('.login-button')
-
+const isLogin = false
 registerBtn.onclick = () => {
     const email = document.querySelector('#email').value
     const password = document.querySelector('#password').value
@@ -23,6 +23,13 @@ registerBtn.onclick = () => {
         return
     }
 
+    // NAN
+    // false
+    // 0
+    // ''
+    // null
+    // undefined
+
     const users = JSON.parse(localStorage.getItem('users')) || []
 
     if (users.some((user) => user.email === email)) {
@@ -30,20 +37,12 @@ registerBtn.onclick = () => {
         return
     }
 
-    // Tạo user mới với role mặc định là 'user'
-    const newUser = {
-        id: Date.now().toString(),
-        email,
-        password,
-        role: 'user',
-        username: email.split('@')[0],
-    }
-
-    users.push(newUser)
+    users.push({ email, password })
     localStorage.setItem('users', JSON.stringify(users))
 
     alert('Đăng ký thành công')
-    window.location.href = 'login.html'
+
+    window.location.href = 'index.html'
 }
 
 loginBtn.onclick = () => {
@@ -51,11 +50,13 @@ loginBtn.onclick = () => {
     const password = document.querySelector('#login-password').value
 
     const users = JSON.parse(localStorage.getItem('users')) || []
-    const user = users.find((user) => user.email === email && user.password === password)
 
-    if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user))
-        if (user.role === 'admin') {
+    const existingUser = users.find((user) => user.email === email && user.password === password)
+
+    if (existingUser) {
+        sessionStorage.setItem('user', JSON.stringify(existingUser))
+        console.log(existingUser)
+        if (email === 'admin@gmail.com') {
             window.location.href = 'admin.html'
         } else {
             window.location.href = 'index.html'

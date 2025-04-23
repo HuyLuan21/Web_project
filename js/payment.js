@@ -29,8 +29,7 @@ document.getElementById('pay-btn').addEventListener('click', () => {
     const ticketInfo = {
         id: Date.now().toString(), // Unique ID based on timestamp
         movieName: bookingInfo.movieTitle,
-        cinema: `CINEMON ${bookingInfo.location}`,
-        showDate: bookingInfo.showDate,
+        cinema: 'CINEMON',
         showTime: bookingInfo.showTime,
         seats: bookingInfo.selectedSeats.split(','),
         price: parseInt(bookingInfo.totalPrice.replace(/[^\d]/g, '')),

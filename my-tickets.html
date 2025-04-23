@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/my-tickets.css" />
+        <link rel="stylesheet" href="css/admin.css" />
     </head>
     <body>
         <header class="header">
@@ -17,68 +18,49 @@
 
                 <div class="navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav-menu">
-                        <li class="nav-item"><a href="index.html#now-showing">PHIM ĐANG CHIẾU</a></li>
+                        <li class="nav-item"><a href="index.html#now-showing">NOW SHOWING</a></li>
                         <li class="nav-item"><a href="index.html#combo">ĐỒ ĂN/COMBO</a></li>
-                        <li class="nav-item"><a href="index.html#promotion">KHUYẾN MÃI</a></li>
-                        <li class="nav-item"><a href="">DỊCH VỤ</a></li>
-                        <li class="nav-item"><a href="">VỀ CINEMON</a></li>
+                        <li class="nav-item"><a href="#">KHUYẾN MÃI</a></li>
+                        <li class="nav-item"><a href="#">DỊCH VỤ</a></li>
+                        <li class="nav-item"><a href="#">VỀ CINEMON</a></li>
                     </ul>
                 </div>
 
                 <div class="right-items">
-                    <!-- Menu cho người dùng chưa đăng nhập -->
-                    <div class="guest-menu">
-                        <a href="login.html" class="auth-button">
-                            <i class="fas fa-user"></i>
-                            Đăng nhập/Đăng ký
-                        </a>
-                    </div>
-
-                    <!-- Menu cho người dùng đã đăng nhập -->
-                    <div class="user-menu" style="display: none">
+                    <div class="user-dropdown">
                         <button class="user-button">
                             <i class="fas fa-user"></i>
-                            <span class="username">Tài khoản</span>
-                            <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="dropdown-menu">
                             <a href="my-tickets.html" class="dropdown-item active">
-                                <i class="fas fa-ticket"></i>
+                                <i class="fas fa-ticket-alt"></i>
                                 Vé của tôi
                             </a>
-                            <a href="profile.html" class="dropdown-item">
-                                <i class="fas fa-user-circle"></i>
-                                Thông tin cá nhân
-                            </a>
-                            <a href="#" class="dropdown-item" id="logout-button">
+                            <a href="#" class="dropdown-item logout-btn">
                                 <i class="fas fa-sign-out-alt"></i>
                                 Đăng xuất
                             </a>
                         </div>
                     </div>
+                    <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                        <i class="fa-solid fa-times"></i>
+                    </button>
                 </div>
             </nav>
         </header>
 
         <main class="tickets-container">
-            <div class="login-required" style="display: none">
-                <div class="login-message">
-                    <h2>Vui lòng đăng nhập</h2>
-                    <p>Bạn cần đăng nhập để xem vé của mình</p>
-                    <a href="login.html" class="login-button">Đăng nhập ngay</a>
+            <div class="tickets-header">
+                <h2>Vé của tôi</h2>
+                <div class="movie-filter">
+                    <select id="movieFilter">
+                        <option value="">Tất cả phim</option>
+                    </select>
                 </div>
             </div>
 
-            <div class="tickets-content" style="display: none">
-                <div class="tickets-header">
-                    <h2>Vé của tôi</h2>
-                    <div class="movie-filter">
-                        <select id="movieFilter">
-                            <option value="">Tất cả phim</option>
-                        </select>
-                    </div>
-                </div>
-
+            <div class="tickets-content">
                 <table class="tickets-table">
                     <thead>
                         <tr>
@@ -89,23 +71,22 @@
                             <th>Ghế</th>
                             <th>Tổng tiền</th>
                             <th>Ngày đặt</th>
-                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody id="ticketsTableBody">
                         <!-- Dữ liệu vé sẽ được thêm vào đây bằng JavaScript -->
                     </tbody>
                 </table>
+            </div>
 
-                <div class="pagination">
-                    <button id="prevPage" disabled>
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <span id="pageInfo">Trang 1/1</span>
-                    <button id="nextPage" disabled>
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+            <div class="pagination">
+                <button id="prevPage" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span id="pageInfo">Trang 1/1</span>
+                <button id="nextPage" disabled>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </main>
 
