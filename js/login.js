@@ -1,6 +1,6 @@
 const registerBtn = document.querySelector('.register-button')
 const loginBtn = document.querySelector('.login-button')
-const isLogin = false
+
 registerBtn.onclick = () => {
     const email = document.querySelector('#email').value
     const password = document.querySelector('#password').value
@@ -23,13 +23,6 @@ registerBtn.onclick = () => {
         return
     }
 
-    // NAN
-    // false
-    // 0
-    // ''
-    // null
-    // undefined
-
     const users = JSON.parse(localStorage.getItem('users')) || []
 
     if (users.some((user) => user.email === email)) {
@@ -37,12 +30,20 @@ registerBtn.onclick = () => {
         return
     }
 
-    users.push({ email, password })
+    // Tạo user mới với role mặc định là 'user'
+    const newUser = {
+        id: Date.now().toString(),
+        email,
+        password,
+        role: 'user',
+        username: email.split('@')[0],
+    }
+
+    users.push(newUser)
     localStorage.setItem('users', JSON.stringify(users))
 
     alert('Đăng ký thành công')
-
-    window.location.href = 'index.html'
+    window.location.href = 'login.html'
 }
 
 loginBtn.onclick = () => {
@@ -50,17 +51,14 @@ loginBtn.onclick = () => {
     const password = document.querySelector('#login-password').value
 
     const users = JSON.parse(localStorage.getItem('users')) || []
+    const user = users.find((user) => user.email === email && user.password === password)
 
-    const existingUser = users.find((user) => user.email === email && user.password === password)
-
-    if (existingUser) {
-        sessionStorage.setItem('user', JSON.stringify(existingUser))
-        console.log(existingUser)
-        if (email === 'admin@gmail.com') {
+    if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user))
+        if (user.role === 'admin') {
             window.location.href = 'admin.html'
         } else {
             window.location.href = 'index.html'
-            console.log('Đã điều hướng tới index.html')
         }
     } else {
         alert('Email hoặc mật khẩu không chính xác')

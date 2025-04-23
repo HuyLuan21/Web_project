@@ -394,7 +394,6 @@ a {
 
 /* Movie Management Styles */
 .movie-management {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     margin-top: 24px;
@@ -418,7 +417,6 @@ a {
 }
 
 .add-movie-form {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
 }
@@ -912,7 +910,6 @@ a {
 
 /* Ticket Management Styles */
 .ticket-management {
-    display: grid;
     grid-template-columns: 300px 1fr;
     gap: 2rem;
     padding: 1rem;

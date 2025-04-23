@@ -125,27 +125,6 @@ body {
     gap: 20px;
 }
 
-.location-select select {
-    padding: 8px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-    font-size: 14px;
-    color: #fff;
-    background-color: transparent;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.location-select select:hover {
-    border-color: #95c840;
-}
-
-.location-select select option {
-    background-color: #0f1b2b;
-    color: #fff;
-}
-
 .auth-button {
     background-color: #95c840;
     color: #fff;
@@ -234,10 +213,6 @@ body {
         gap: 15px;
     }
 
-    .location-select {
-        display: none;
-    }
-
     .auth-button {
         display: none;
     }
@@ -263,10 +238,6 @@ body {
 
     .logo .fa-play {
         font-size: 20px;
-    }
-
-    .location-select {
-        display: none;
     }
 
     .auth-button {

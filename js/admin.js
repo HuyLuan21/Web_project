@@ -65,6 +65,9 @@ function updateContent(section) {
         case 'services':
             renderServiceManagement(contentArea)
             break
+        case 'tickets':
+            renderTicketManagement(contentArea)
+            break
         default:
             renderDashboard(contentArea)
     }
@@ -418,26 +421,9 @@ function renderCustomerManagement(container) {
     container.innerHTML = `
         <h2>Quản lý vé</h2>
         <div class="ticket-management">
-            <div class="ticket-config-section">
-                <h3>Cấu hình giá vé</h3>
-                <form id="ticketPriceForm" class="ticket-price-form">
-                    <div class="form-group">
-                        <label for="ticketPrice">Giá vé (VNĐ)</label>
-                        <input type="number" id="ticketPrice" name="ticketPrice" required min="0" step="1000">
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="submit-button">Lưu cấu hình</button>
-                    </div>
-                </form>
-            </div>
-
             <div class="ticket-list-section">
                 <h3>Danh sách vé đã bán</h3>
                 <div class="ticket-filters">
-                    <div class="form-group">
-                        <label for="dateFilter">Ngày:</label>
-                        <input type="date" id="dateFilter">
-                    </div>
                     <div class="form-group">
                         <label for="movieFilter">Phim:</label>
                         <select id="movieFilter">
@@ -449,12 +435,13 @@ function renderCustomerManagement(container) {
                     <table class="ticket-table">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Tên phim</th>
                                 <th>Rạp</th>
-                                <th>Ngày chiếu</th>
                                 <th>Suất chiếu</th>
                                 <th>Số ghế</th>
                                 <th>Giá tiền</th>
+                                <th>Ngày đặt</th>
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
@@ -476,109 +463,98 @@ function renderCustomerManagement(container) {
         </div>
     `
 
-    // Load saved ticket configuration
-    const ticketConfig = JSON.parse(localStorage.getItem('ticketConfig')) || {
-        ticketPrice: 90000,
-    }
-
-    // Fill form with saved values
-    document.getElementById('ticketPrice').value = ticketConfig.ticketPrice
-
-    // Handle ticket configuration form submission
-    const ticketPriceForm = document.getElementById('ticketPriceForm')
-    ticketPriceForm.addEventListener('submit', function (e) {
-        e.preventDefault()
-
-        const newPrice = parseInt(document.getElementById('ticketPrice').value)
-
-        // Validate input
-        if (newPrice <= 0) {
-            alert('Giá vé phải lớn hơn 0')
-            return
-        }
-
-        // Save configuration
-        const newConfig = {
-            ticketPrice: newPrice,
-            lastUpdated: new Date().toISOString(),
-        }
-
-        localStorage.setItem('ticketConfig', JSON.stringify(newConfig))
-
-        // Update all existing tickets with new price if needed
-        const tickets = JSON.parse(localStorage.getItem('bookings') || '[]')
-        const updatedTickets = tickets.map((ticket) => {
-            if (ticket.status === 'pending') {
-                const seatCount = ticket.selectedSeats.split(',').length
-                ticket.totalPrice = formatPrice(newPrice * seatCount)
-            }
-            return ticket
-        })
-        localStorage.setItem('bookings', JSON.stringify(updatedTickets))
-
-        alert('Đã cập nhật giá vé thành công!')
-
-        // Reload ticket list to show updated prices
-        loadTickets()
-    })
-
     // Load movies for filter
     const movies = JSON.parse(localStorage.getItem('movies')) || []
     const movieFilter = document.getElementById('movieFilter')
     movies.forEach((movie) => {
         const option = document.createElement('option')
-        option.value = movie.id
+        option.value = movie.name
         option.textContent = movie.name
         movieFilter.appendChild(option)
     })
 
-    // Handle filters
-    const filters = ['dateFilter', 'movieFilter']
-    filters.forEach((filterId) => {
-        document.getElementById(filterId).addEventListener('change', loadTickets)
-    })
+    // Handle movie filter change
+    movieFilter.addEventListener('change', loadTickets)
 
     // Initial load of tickets
     loadTickets()
 }
 
+// Helper function to safely parse JSON from localStorage
+function safeJSONParse(key, defaultValue = []) {
+    try {
+        const data = localStorage.getItem(key)
+        return data ? JSON.parse(data) : defaultValue
+    } catch (error) {
+        console.error(`Error parsing data from localStorage[${key}]:`, error)
+        return defaultValue
+    }
+}
+
+// Helper function to safely stringify and save JSON to localStorage
+function safeJSONStringify(key, data) {
+    try {
+        localStorage.setItem(key, JSON.stringify(data))
+        return true
+    } catch (error) {
+        console.error(`Error saving data to localStorage[${key}]:`, error)
+        return false
+    }
+}
+
+// Update existing functions to use these helpers
 function loadTickets() {
-    const dateFilter = document.getElementById('dateFilter').value
-    const movieFilter = document.getElementById('movieFilter').value
+    const movieFilter = document.getElementById('movieFilter')?.value || ''
 
     // Get tickets from localStorage
-    let tickets = JSON.parse(localStorage.getItem('bookings') || '[]')
+    let tickets = safeJSONParse('bookings', [])
 
-    // Apply filters
-    if (dateFilter) {
-        tickets = tickets.filter((ticket) => ticket.showDate === dateFilter)
-    }
+    // Apply movie filter
     if (movieFilter) {
         tickets = tickets.filter((ticket) => ticket.movieTitle === movieFilter)
     }
 
-    // Update table
-    const tableBody = document.getElementById('ticketTableBody')
-    tableBody.innerHTML = ''
+    // Store filtered tickets in localStorage for pagination
+    safeJSONStringify('filteredTickets', tickets)
 
-    if (tickets.length === 0) {
+    // Load first page
+    loadTicketsPage(1)
+}
+
+function loadTicketsPage(page, itemsPerPage = 10) {
+    const tickets = JSON.parse(localStorage.getItem('filteredTickets') || '[]')
+    const totalPages = Math.ceil(tickets.length / itemsPerPage)
+    const start = (page - 1) * itemsPerPage
+    const end = start + itemsPerPage
+    const paginatedTickets = tickets.slice(start, end)
+
+    // Update pagination buttons
+    document.getElementById('prevPage').disabled = page <= 1
+    document.getElementById('nextPage').disabled = page >= totalPages
+    document.querySelector('.ticket-pagination span').textContent = `Trang ${page}/${totalPages}`
+
+    // Update table with paginated tickets
+    const tableBody = document.querySelector('.ticket-table tbody')
+    if (paginatedTickets.length === 0) {
         tableBody.innerHTML = `
             <tr>
-                <td colspan="7" class="no-tickets">Không có vé nào</td>
+                <td colspan="8" class="no-tickets">Không có vé nào</td>
             </tr>
         `
         return
     }
 
-    tickets.forEach((ticket) => {
-        const row = document.createElement('tr')
-        row.innerHTML = `
+    tableBody.innerHTML = paginatedTickets
+        .map(
+            (ticket, index) => `
+        <tr>
+            <td>${start + index + 1}</td>
             <td>${ticket.movieTitle}</td>
-            <td>${ticket.location}</td>
-            <td>${ticket.showDate}</td>
+            <td>CINEMON</td>
             <td>${ticket.showTime}</td>
             <td>${ticket.selectedSeats}</td>
             <td>${ticket.totalPrice}</td>
+            <td>${new Date(ticket.bookingDate).toLocaleDateString('vi-VN')}</td>
             <td>
                 <div class="ticket-actions">
                     <button class="action-btn view-ticket" data-id="${ticket.bookingDate}" title="Xem chi tiết">
@@ -589,41 +565,36 @@ function loadTickets() {
                     </button>
                 </div>
             </td>
-        `
-        tableBody.appendChild(row)
-    })
+        </tr>
+    `
+        )
+        .join('')
 
     // Add event listeners for ticket actions
     document.querySelectorAll('.view-ticket').forEach((btn) => {
-        btn.addEventListener('click', function () {
-            viewTicketDetails(this.dataset.id)
-        })
+        btn.addEventListener('click', () => viewTicketDetails(btn.dataset.id))
     })
 
-    // Add event listeners for delete buttons
     document.querySelectorAll('.delete-ticket').forEach((btn) => {
-        btn.addEventListener('click', function () {
-            deleteTicket(this.dataset.id)
-        })
+        btn.addEventListener('click', () => deleteTicket(btn.dataset.id))
     })
 }
 
 function deleteTicket(bookingDate) {
     if (confirm('Bạn có chắc chắn muốn xóa vé này không?')) {
         // Get current tickets
-        let bookings = JSON.parse(localStorage.getItem('bookings') || '[]')
+        let bookings = safeJSONParse('bookings', [])
 
         // Remove the ticket
         bookings = bookings.filter((booking) => booking.bookingDate !== bookingDate)
 
         // Save back to localStorage
-        localStorage.setItem('bookings', JSON.stringify(bookings))
-
-        // Show success message
-        alert('Đã xóa vé thành công!')
-
-        // Reload the ticket list
-        loadTickets()
+        if (safeJSONStringify('bookings', bookings)) {
+            alert('Đã xóa vé thành công!')
+            loadTickets()
+        } else {
+            alert('Có lỗi xảy ra khi xóa vé. Vui lòng thử lại.')
+        }
     }
 }
 
@@ -640,21 +611,21 @@ function formatPrice(price) {
 }
 
 function viewTicketDetails(bookingDate) {
-    const tickets = JSON.parse(localStorage.getItem('bookings') || '[]')
+    const tickets = safeJSONParse('bookings', [])
     const ticket = tickets.find((t) => t.bookingDate === bookingDate)
 
     if (ticket) {
         alert(`
             Chi tiết vé:
-            Tên phim: ${ticket.movieTitle}
-            Rạp: CINEMON ${ticket.location}
-            Ngày chiếu: ${ticket.showDate}
-            Suất chiếu: ${ticket.showTime}
-            Số ghế: ${ticket.selectedSeats}
-            Giá tiền: ${ticket.totalPrice}
-            Ngày đặt vé: ${new Date(ticket.bookingDate).toLocaleString('vi-VN')}
+            Tên phim: ${ticket.movieTitle || 'Không có thông tin'}
+            Rạp: CINEMON ${ticket.location || 'Không có thông tin'}
+            Suất chiếu: ${ticket.showTime || 'Không có thông tin'}
+            Số ghế: ${ticket.selectedSeats || 'Không có thông tin'}
+            Giá tiền: ${ticket.totalPrice || 'Không có thông tin'}
             Trạng thái: ${ticket.status === 'completed' ? 'Đã thanh toán' : 'Chờ thanh toán'}
         `)
+    } else {
+        alert('Không tìm thấy thông tin vé!')
     }
 }
 
@@ -668,4 +639,97 @@ function renderPromotionManagement(container) {
 
 function renderServiceManagement(container) {
     container.innerHTML = '<h2>Quản lý dịch vụ</h2>'
+}
+
+function renderTicketManagement(container) {
+    container.innerHTML = `
+        <h2>Quản lý vé</h2>
+        <div class="ticket-filters">
+            <div class="form-group">
+                <label>Phim:</label>
+                <select id="movie-filter">
+                    <option value="">Tất cả</option>
+                    <option value="1">DROP: BUỔI HẸN KINH HOÀNG</option>
+                </select>
+            </div>
+           
+        </div>
+
+        <div class="ticket-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã vé</th>
+                        <th>Tên phim</th>
+                        <th>Rạp</th>
+                        <th>Suất chiếu</th>
+                        <th>Ghế</th>
+                        <th>Giá tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="status-badge active">Đang hoạt động</span>
+                        </td>
+                        <td>
+                            <div class="ticket-actions">
+                                <button class="action-btn view-ticket" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn delete-ticket" title="Xóa">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ticket-pagination">
+            <button class="pagination-btn" id="prev-page" disabled>
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <span>Trang 1/1</span>
+            <button class="pagination-btn" id="next-page" disabled>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    `
+
+    // Add event listeners for filters
+    document.getElementById('movie-filter')?.addEventListener('change', loadTickets)
+
+    // Add event listeners for pagination
+    document.getElementById('prev-page')?.addEventListener('click', () => {
+        const currentPage = parseInt(
+            document.querySelector('.ticket-pagination span').textContent.split('/')[0].replace('Trang ', '')
+        )
+        if (currentPage > 1) {
+            loadTicketsPage(currentPage - 1)
+        }
+    })
+
+    document.getElementById('next-page')?.addEventListener('click', () => {
+        const [currentPage, totalPages] = document
+            .querySelector('.ticket-pagination span')
+            .textContent.replace('Trang ', '')
+            .split('/')
+            .map((num) => parseInt(num))
+        if (currentPage < totalPages) {
+            loadTicketsPage(currentPage + 1)
+        }
+    })
+
+    // Initial load of tickets
+    loadTickets()
 }

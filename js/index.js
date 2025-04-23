@@ -55,14 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeUserDropdown()
 })
 
-let selectedLocation = document.querySelector('.location-select select').value
-
-// Add event listener for location change
-document.querySelector('.location-select select').addEventListener('change', (e) => {
-    selectedLocation = e.target.value
-    displayMovies() // Refresh movie display with new location
-})
-
 const movieGrid = document.querySelector('.movie-grid')
 
 // Lấy danh sách phim từ localStorage
@@ -166,9 +158,7 @@ function displayMovies() {
                     <span>${movie.genre}</span>
                     <span>${movie.duration} phút</span>
                 </div>
-                <a href="seatselect.html?title=${encodeURIComponent(movie.name)}&location=${encodeURIComponent(
-                selectedLocation
-            )}" class="movie-button">Đặt vé ngay</a>
+                <a href="seatselect.html?title=${encodeURIComponent(movie.name)}" class="movie-button">Đặt vé ngay</a>
             </div>
         </div>
     `

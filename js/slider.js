@@ -72,7 +72,7 @@ const slideHtmls = moviesSlider.map((movie, index) => {
                 <div class="slide-content">
                     <h2 class="slide-title">${movie.name}</h2>
                     <div class="slide-buttons"> 
-                        <a href="seatselect.html" class="slide-button book-now">
+                        <a href="seatselect.html?title=${encodeURIComponent(movie.name)}" class="slide-button book-now">
                             <i class="fas fa-ticket-alt"></i>
                             MUA VÉ NGAY
                         </a>

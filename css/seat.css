@@ -505,6 +505,11 @@ a {
     }
 }
 
+/* Time Select Styles */
+.time-select {
+    margin-bottom: 30px;
+}
+
 .time-select-item ul {
     display: flex;
     list-style: none;
@@ -529,60 +534,4 @@ a {
 
 .time-select-item ul li.active {
     background-color: var(--primary-color);
-}
-
-/* Day select styles */
-.dayselect {
-    margin: 20px 0;
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.dayselect-item ul {
-    display: flex;
-    list-style: none;
-    align-items: center;
-    gap: 10px;
-    padding: 0;
-    margin: 0;
-    overflow-x: auto;
-}
-
-.dayselect-item-btn {
-    min-width: 120px;
-    padding: 15px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-}
-
-.dayselect-item-btn .date {
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.dayselect-item-btn .day {
-    font-size: 14px;
-    color: #666;
-}
-
-.dayselect-item-btn:hover {
-    background-color: #e8e8e8;
-}
-
-.dayselect-item-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.dayselect-item-btn.active .day {
-    color: rgba(255, 255, 255, 0.8);
 }

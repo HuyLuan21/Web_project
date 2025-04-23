@@ -4,8 +4,6 @@ const urlParams = new URLSearchParams(window.location.search)
 // Booking information
 const bookingInfo = {
     movieTitle: urlParams.get('title'),
-    location: urlParams.get('location'),
-    showDate: urlParams.get('date'),
     showTime: urlParams.get('showTime'),
     selectedSeats: urlParams.get('seats'),
     totalPrice: urlParams.get('totalPrice'),
@@ -15,8 +13,6 @@ const bookingInfo = {
 
 // Display booking information
 document.getElementById('movie-title').textContent = bookingInfo.movieTitle
-document.getElementById('location').textContent = bookingInfo.location
-document.getElementById('show-date').textContent = bookingInfo.showDate
 document.getElementById('show-time').textContent = bookingInfo.showTime
 document.getElementById('selected-seats').textContent = bookingInfo.selectedSeats
 document.getElementById('total-price').textContent = bookingInfo.totalPrice
