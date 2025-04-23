@@ -243,10 +243,6 @@ body.dark-mode .right-items .fa-user {
         padding: 0;
     }
 
-    body.dark-mode .navbar-toggler {
-        color: #fff;
-    }
-
     .navbar-toggler .fa-bars {
         display: block;
     }

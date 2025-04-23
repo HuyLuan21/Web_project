@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
         <link rel="stylesheet" href="css/payment.css" />
-        <title>Thanh toán - CINEMON</title>
+        <title>Thanh toán</title>
     </head>
     <body>
         <header class="header">
@@ -13,71 +13,30 @@
                 <h1 class="logo">
                     <a href="index.html"> <i class="fa-solid fa-play"></i>CINEMON </a>
                 </h1>
-
-                <div class="navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav-menu">
-                        <li class="nav-item"><a href="index.html#now-showing">NOW SHOWING</a></li>
-                        <li class="nav-item"><a href="index.html#combo">ĐỒ ĂN/COMBO</a></li>
-                        <li class="nav-item"><a href="">KHUYẾN MÃI</a></li>
-                        <li class="nav-item"><a href="">DỊCH VỤ</a></li>
-                        <li class="nav-item"><a href="">VỀ CINEMON</a></li>
-                    </ul>
-                </div>
-
-                <div class="right-items">
-                    <a href="login.html" class="fa-solid fa-user"></a>
-                    <a href="login.html" class="auth-button">Đăng nhập/Đăng ký</a>
-                    <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-                        <i class="fa-solid fa-bars"></i>
-                        <i class="fa-solid fa-times"></i>
-                    </button>
-                </div>
             </nav>
         </header>
 
         <div class="main-container">
-            <div class="payment-wrapper">
-                <!-- Thông tin đơn hàng -->
-                <div class="order-summary">
-                    <h2>Thông tin đơn hàng</h2>
-                    <div class="movie-info">
-                        <img src="images/movie-poster.jpg" alt="Movie Poster" class="movie-poster" />
-                        <div class="movie-details">
-                            <h3 id="movieTitle">Kung Fu Panda 4</h3>
-                            <p><i class="fas fa-film"></i> <span id="cinemaName">CINEMON Huế</span></p>
-                            <p><i class="far fa-clock"></i> <span id="showTime">20:30 - 22:45, 20/03/2024</span></p>
-                            <p><i class="fas fa-couch"></i> Ghế: <span id="selectedSeats">A1, A2</span></p>
-                        </div>
+            <div class="payment-section">
+                <div class="booking-summary">
+                    <h2>Thông tin đặt vé</h2>
+                    <div class="summary-details">
+                        <p><strong>Phim:</strong> <span id="movie-title"></span></p>
+                        <p><strong>Rạp:</strong> CINEMON <span id="location"></span></p>
+                        <p><strong>Ngày chiếu:</strong> <span id="show-date"></span></p>
+                        <p><strong>Suất chiếu:</strong> <span id="show-time"></span></p>
+                        <p><strong>Ghế đã chọn:</strong> <span id="selected-seats"></span></p>
+                        <p><strong>Tổng tiền:</strong> <span id="total-price"></span></p>
                     </div>
-                    <div class="price-summary">
-                        <div class="price-row">
-                            <span>Giá vé</span>
-                            <span>90.000đ x <span id="ticketCount">2</span></span>
-                        </div>
-                        <div class="price-row">
-                            <span>Phí tiện ích</span>
-                            <span>2.000đ/vé</span>
-                        </div>
-                        <div class="price-total">
-                            <span>Tổng tiền</span>
-                            <span id="totalAmount">184.000đ</span>
-                        </div>
-                    </div>
+                </div>
 
-                    <!-- Điều khoản -->
-                    <div class="terms-checkbox">
-                        <input type="checkbox" id="agreeTerms" />
-                        <label for="agreeTerms">
-                            Tôi đồng ý với <a href="#">điều khoản</a> và <a href="#">chính sách</a> của CINEMON
-                        </label>
-                    </div>
-
-                    <!-- Nút thanh toán -->
-                    <button class="pay-button" id="payButton" disabled>
-                        Thanh toán ngay <span id="payAmount">184.000đ</span>
-                    </button>
+                <div class="payment-actions">
+                    <button class="back-btn" onclick="history.back()">Quay lại</button>
+                    <button class="pay-btn" id="pay-btn">Xác nhận đặt vé</button>
                 </div>
             </div>
         </div>
+
+        <script src="js/payment.js"></script>
     </body>
 </html>

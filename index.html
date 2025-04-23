@@ -32,7 +32,25 @@
                             <option value="Đà Nẵng">Đà Nẵng</option>
                         </select>
                     </div>
-                    <a href="login.html" class="fa-solid fa-user"></a>
+                    <div class="user-dropdown" style="display: none">
+                        <button class="user-button">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="my-tickets.html" class="dropdown-item">
+                                <i class="fas fa-ticket-alt"></i>
+                                Vé của tôi
+                            </a>
+                            <a href="admin.html" class="dropdown-item admin-only" style="display: none">
+                                <i class="fas fa-cog"></i>
+                                Quản trị
+                            </a>
+                            <a href="#" class="dropdown-item logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Đăng xuất
+                            </a>
+                        </div>
+                    </div>
                     <a href="login.html" class="auth-button">Đăng nhập/Đăng ký</a>
                     <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
                         <i class="fa-solid fa-bars"></i>

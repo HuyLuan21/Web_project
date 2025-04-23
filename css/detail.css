@@ -193,34 +193,6 @@ h2 {
     color: #333;
 }
 
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #333;
-}
-
-.required:after {
-    content: ' *';
-    color: var(--error-color);
-}
-
-input[type='text'],
-input[type='email'],
-input[type='password'],
-input[type='tel'],
-select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
 input:focus,
 select:focus {
     border-color: var(--primary-color);
@@ -239,10 +211,6 @@ select:focus {
     display: flex;
     align-items: center;
     gap: 5px;
-}
-
-input[type='radio'] {
-    margin-right: 5px;
 }
 
 .date-selects {
@@ -407,11 +375,6 @@ select {
 
         .logo .fa-play {
             font-size: 20px;
-        }
-
-        .gender-options {
-            flex-direction: column;
-            gap: 10px;
         }
 
         h2 {

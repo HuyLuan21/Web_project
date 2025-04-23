@@ -7,40 +7,41 @@ const urlParams = new URLSearchParams(window.location.search)
 const title = urlParams.get('title')
 const location = urlParams.get('location')
 
+// Get ticket price from configuration
+const ticketConfig = JSON.parse(localStorage.getItem('ticketConfig')) || { ticketPrice: 90000 }
+const priceElement = document.querySelector('#price')
+priceElement.textContent = new Intl.NumberFormat('vi-VN').format(ticketConfig.ticketPrice) + 'đ/ghế'
+
 movieTitle.textContent = title
 movieLocation.textContent = location
+
+function updateTotalPrice() {
+    const selectedSeatsCount = document.querySelectorAll('.seat.selected:not(.guigde)').length
+    const totalPrice = selectedSeatsCount * ticketConfig.ticketPrice
+
+    const formatter = new Intl.NumberFormat('vi-VN')
+    document.querySelector('#seat-count').textContent = selectedSeatsCount + ' ghế'
+    document.querySelector('#total-price').textContent = formatter.format(totalPrice) + ' VND'
+}
+
 seatBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         console.log(e.target.dataset?.seat?.slice(0, 1))
         console.log(e.target.dataset?.seat?.slice(1))
 
         e.target.classList.toggle('selected')
-
         loadContinueBtn()
+        updateTotalPrice()
 
         const holdTime = 5 * 60 * 1000
-        const bookingInfo = document.querySelector('.booking-info')
-
-        bookingInfo.querySelector('#seat-count').textContent =
-            document.querySelectorAll('.seat.selected:not(.guigde)').length + ' ghế'
-
-        const [intPrice] = bookingInfo.querySelector('#price').textContent.split('đ')
-
-        // Create our number formatter.
-        const formatter = new Intl.NumberFormat('vi-VN', {
-            style: 'decimal',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-        })
-
-        const totalPrice = document.querySelectorAll('.seat.selected:not(.guigde)').length * Number(intPrice) * 1000
-
-        bookingInfo.querySelector('#total-price').textContent = formatter.format(totalPrice) + ' VND'
         let timeout = null
 
         if (e.target.classList.contains('selected')) {
             timeout = setTimeout(() => {
                 alert('Thời gian giữ ghế đã hết.')
+                e.target.classList.remove('selected')
+                loadContinueBtn()
+                updateTotalPrice()
             }, holdTime)
         } else {
             clearTimeout(timeout)
@@ -50,16 +51,10 @@ seatBtns.forEach((btn) => {
 
 timeSelectItem.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-        // Remove active class from all time buttons
-        timeSelectItem.forEach((item) => {
-            item.classList.remove('active')
-        })
-
-        // Add active class to clicked button
+        timeSelectItem.forEach((item) => item.classList.remove('active'))
         btn.classList.add('active')
 
         const time = e.target.textContent
-        // Map text to number
         const [hours, minutes] = time.split(':').map(Number)
 
         let newHours = hours + 2
@@ -82,12 +77,7 @@ timeSelectItem.forEach((btn) => {
 const loadContinueBtn = () => {
     const hasSelectedSeat = document.querySelectorAll('.seat.selected:not(.guigde)').length > 0
     const continueBtn = document.querySelector('.continue-btn')
-
-    if (hasSelectedSeat) {
-        continueBtn.removeAttribute('disabled')
-    } else {
-        continueBtn.setAttribute('disabled', 'disabled')
-    }
+    continueBtn.disabled = !hasSelectedSeat
 }
 
 const daySelectItem = document.querySelectorAll('.dayselect-item-btn')
@@ -103,7 +93,7 @@ function generate7Day() {
     const date = new Date()
     const day = ['CN', 'Th 2', 'Th 3', 'Th 4', 'Th 5', 'Th 6', 'Th 7']
     const daySelectContainer = document.querySelector('.dayselect-item ul')
-    daySelectContainer.innerHTML = '' // Clear existing content
+    daySelectContainer.innerHTML = ''
 
     for (let i = 0; i < 7; i++) {
         const newDate = new Date(date)
@@ -119,11 +109,9 @@ function generate7Day() {
         `
 
         li.addEventListener('click', function () {
-            // Remove active class from all buttons
             document.querySelectorAll('.dayselect-item-btn').forEach((btn) => {
                 btn.classList.remove('active')
             })
-            // Add active class to clicked button
             this.classList.add('active')
         })
 
@@ -133,3 +121,26 @@ function generate7Day() {
 
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', generate7Day)
+
+// Add continue button click handler
+document.querySelector('#continue-btn').addEventListener('click', () => {
+    const selectedSeats = Array.from(document.querySelectorAll('.seat.selected:not(.guigde)'))
+        .map((seat) => seat.dataset.seat)
+        .join(',')
+
+    const showTime = document.querySelector('#time-select-text').textContent
+    const selectedDate = document.querySelector('.dayselect-item-btn.active .date').textContent
+    const totalPrice = document.querySelector('#total-price').textContent
+
+    // Create URL with booking information
+    const paymentUrl = new URL('payment.html', window.location.href)
+    paymentUrl.searchParams.set('seats', selectedSeats)
+    paymentUrl.searchParams.set('showTime', showTime)
+    paymentUrl.searchParams.set('date', selectedDate)
+    paymentUrl.searchParams.set('totalPrice', totalPrice)
+    paymentUrl.searchParams.set('title', title)
+    paymentUrl.searchParams.set('location', location)
+
+    // Redirect to payment page
+    window.location.href = paymentUrl.toString()
+})

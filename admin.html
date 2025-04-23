@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cinemon Admin</title>
+        <link rel="stylesheet" href="css/admin.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <nav class="navbar">
+                    <h1 class="logo">
+                        <a href="/">
+                            <i class="fas fa-play"></i>
+                            CINEMON
+                        </a>
+                    </h1>
+                    <div class="right-items">
+                        <div class="admin-dropdown">
+                            <button class="admin-button">
+                                <i class="fas fa-user"></i>
+                                Admin
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="login.html" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Đăng xuất
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Admin Content -->
+        <div class="container">
+            <div class="admin-container">
+                <!-- Left Menu -->
+                <div class="admin-left-menu">
+                    <ul>
+                        <li>
+                            <a href="#dashboard"><i class="fas fa-home"></i> Trang chủ</a>
+                        </li>
+                        <li>
+                            <a href="#movie"><i class="fas fa-film"></i> Quản lý Phim</a>
+                        </li>
+                        <li>
+                            <a href="#customers"><i class="fas fa-users"></i> Quản lý vé</a>
+                        </li>
+                        <li>
+                            <a href="#food"><i class="fas fa-utensils"></i> Quản lý đồ ăn</a>
+                        </li>
+                        <li>
+                            <a href="#promotions"><i class="fas fa-percent"></i> Quản lý khuyến mãi</a>
+                        </li>
+                        <li>
+                            <a href="#services"><i class="fas fa-concierge-bell"></i> Quản lý dịch vụ</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right Content -->
+                <div class="admin-right">
+                    <div class="admin-content">
+                        <h2>Bảng điều khiển</h2>
+                        <div class="dashboard-stats">
+                            <!-- Dashboard content will go here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/admin.js"></script>
+    </body>
+</html>

@@ -39,21 +39,21 @@
             <!-- Login Form -->
             <div class="form-container">
                 <h2>Đăng nhập tài khoản</h2>
-                <form>
+                <form id="login-form">
                     <div class="form-group">
                         <label for="login-email" class="required">Email</label>
-                        <input type="email" id="login-email" placeholder="Tài khoản hoặc địa chỉ email" />
+                        <input type="email" id="login-email" placeholder="Tài khoản hoặc địa chỉ email" required />
                     </div>
 
                     <div class="form-group">
                         <label for="login-password" class="required">Mật khẩu</label>
-                        <input type="password" id="login-password" placeholder="Mật khẩu" />
+                        <input type="password" id="login-password" placeholder="Mật khẩu" required />
                         <div class="forgot-password">
                             <a href="#">Quên mật khẩu?</a>
                         </div>
                     </div>
 
-                    <div class="error-message" style="display: none"></div>
+                    <div id="login-error" class="error-message"></div>
 
                     <button type="button" class="submit-button login-button">Đăng nhập</button>
                 </form>
@@ -63,80 +63,26 @@
             <div class="form-container">
                 <h2>Đăng ký tài khoản</h2>
                 <form id="register-form">
-                    <!--
-                    <div class="form-group">
-                        <label for="lastname" class="required">Họ</label>
-                        <input type="text" id="lastname" />
-                    </div>
-
-                     <div class="form-group">
-                        <label for="firstname" class="required">Tên đệm và tên</label>
-                        <input type="text" id="firstname" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="required">Giới tính</label>
-                        <div class="gender-options">
-                            <div class="gender-option">
-                                <input type="radio" id="male" name="gender" value="male" />
-                                <label for="male">Nam</label>
-                            </div>
-                            <div class="gender-option">
-                                <input type="radio" id="female" name="gender" value="female" />
-                                <label for="female">Nữ</label>
-                            </div>
-                            <div class="gender-option">
-                                <input type="radio" id="other" name="gender" value="other" />
-                                <label for="other">Khác</label>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="form-group">
                         <label for="email" class="required">Địa chỉ email</label>
-                        <input type="email" id="email" />
+                        <input type="email" id="email" placeholder="Nhập địa chỉ email" required />
                     </div>
 
                     <div class="form-group">
                         <label for="password" class="required">Mật khẩu</label>
-                        <input type="password" id="password" />
+                        <input type="password" id="password" placeholder="Nhập mật khẩu" required />
                     </div>
 
                     <div class="form-group">
                         <label for="confirm-password" class="required">Nhập lại mật khẩu</label>
-                        <input type="password" id="confirm-password" />
+                        <input type="password" id="confirm-password" placeholder="Nhập lại mật khẩu" required />
                     </div>
 
-                    <!-- <div class="form-group">
-                        <label for="phone" class="required">Số điện thoại</label>
-                        <input type="tel" id="phone" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="required">Ngày sinh</label>
-                        <div class="date-selects">
-                            <div class="date-select">
-                                <select id="day">
-                                    <option value="">Chọn ngày</option>
-                                </select>
-                            </div>
-                            <div class="date-select">
-                                <select id="month">
-                                    <option value="">Chọn tháng</option>
-                                </select>
-                            </div>
-                            <div class="date-select">
-                                <select id="year">
-                                    <option value="">Chọn năm</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>  -->
                     <div class="checkbox-group">
-                        <input type="checkbox" id="terms" />
-                        <label for="terms"
-                            >Tôi đã đọc, hiểu và đồng ý với các <a href="#" class="terms-link">điều khoản</a></label
-                        >
+                        <input type="checkbox" id="terms" required />
+                        <label for="terms">
+                            Tôi đã đọc, hiểu và đồng ý với các <a href="#" class="terms-link">điều khoản</a>
+                        </label>
                     </div>
 
                     <div class="checkbox-group">
@@ -144,7 +90,7 @@
                         <label for="newsletter">Nhận thông tin chương trình khuyến mãi</label>
                     </div>
 
-                    <div class="error-message" style="display: none"></div>
+                    <div id="register-error" class="error-message"></div>
 
                     <button type="button" class="submit-button register-button">Đăng ký</button>
                 </form>

@@ -1,6 +1,6 @@
 const registerBtn = document.querySelector('.register-button')
 const loginBtn = document.querySelector('.login-button')
-
+const isLogin = false
 registerBtn.onclick = () => {
     const email = document.querySelector('#email').value
     const password = document.querySelector('#password').value
