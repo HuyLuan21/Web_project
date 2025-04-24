@@ -406,6 +406,20 @@ function renderCustomerManagement(container) {
     container.innerHTML = `
         <h2>Quản lý vé</h2>
         <div class="ticket-management">
+            <!-- Thêm phần cấu hình giá vé -->
+            <div class="ticket-config-section">
+                <h3>Cấu hình giá vé</h3>
+                <form id="ticketPriceForm" class="ticket-price-form">
+                    <div class="form-group">
+                        <label for="ticketPrice">Giá vé (VNĐ)</label>
+                        <input type="number" id="ticketPrice" name="ticketPrice" >
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-button">Cập nhật giá vé</button>
+                    </div>
+                </form>
+            </div>
+
             <div class="ticket-list-section">
                 <h3>Danh sách vé đã bán</h3>
                 <div class="ticket-filters">
@@ -447,6 +461,22 @@ function renderCustomerManagement(container) {
             </div>
         </div>
     `
+
+    // Load current ticket price
+    const ticketConfig = JSON.parse(localStorage.getItem('ticketConfig')) || { ticketPrice: 90000 }
+    document.getElementById('ticketPrice').value = ticketConfig.ticketPrice
+
+    // Handle ticket price form submission
+    document.getElementById('ticketPriceForm').addEventListener('submit', function (e) {
+        e.preventDefault()
+        const newPrice = parseInt(document.getElementById('ticketPrice').value)
+        if (newPrice < 0) {
+            alert('Giá vé không thể là số âm')
+            return
+        }
+        localStorage.setItem('ticketConfig', JSON.stringify({ ticketPrice: newPrice }))
+        alert('Cập nhật giá vé thành công!')
+    })
 
     // Load movies for filter
     const movies = JSON.parse(localStorage.getItem('movies')) || []

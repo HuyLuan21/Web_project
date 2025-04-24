@@ -66,7 +66,7 @@ if (movies.length === 0) {
         {
             id: 1,
             name: 'DROP: BUỔI HẸN KINH HOÀNG',
-            image: 'img/BuoiHenHoKinhHoang.jpg',
+            image: 'https://res.cloudinary.com/dkeeelvpa/image/upload/v1745467024/BuoiHenHoKinhHoang_k99dek.jpg',
             videoId: 'cQ1eYm_XIcA',
             year: '2025',
             duration: 96,
@@ -79,7 +79,7 @@ if (movies.length === 0) {
         {
             id: 2,
             name: 'LẬT MẶT 8: VÒNG TAY NẮNG',
-            image: 'img/LatMat8-VongTayNang.png',
+            image: 'https://res.cloudinary.com/dkeeelvpa/image/upload/v1745467026/LatMat8-VongTayNang_bbuoez.png',
             videoId: 'hUlBTt3NyGI',
             year: '2025',
             duration: 103,
@@ -92,7 +92,7 @@ if (movies.length === 0) {
         {
             id: 3,
             name: 'TAY NGHIỆP DƯ',
-            image: 'img/TayNghiepDu.png',
+            image: 'https://res.cloudinary.com/dkeeelvpa/image/upload/v1745467027/TayNghiepDu_q81srd.png',
             videoId: 'c0SG_zJarME',
             year: '2025',
             duration: '122 ',
@@ -105,7 +105,7 @@ if (movies.length === 0) {
         {
             id: 4,
             name: 'PANOR : TÀ THUẬT HUYẾT NGẢI',
-            image: 'img/TaThuatHuyetNgai.jpg',
+            image: 'https://res.cloudinary.com/dkeeelvpa/image/upload/v1745467026/TaThuatHuyetNgai_nlviif.jpg',
             videoId: '3pciNGgdY_g',
             year: '2025',
             genre: 'Horror',
@@ -118,7 +118,7 @@ if (movies.length === 0) {
         {
             id: 5,
             name: 'THÁM TỬ KIÊN: KỲ ÁN KHÔNG ĐẦU',
-            image: 'img/ThamTuKien_KyAnKhongDau.jpg',
+            image: 'https://res.cloudinary.com/dkeeelvpa/image/upload/v1745467028/ThamTuKien_KyAnKhongDau_r1t1gq.jpg',
             videoId: 'wc6pZv9e_ew',
             year: '2025',
             genre: 'Mystery',

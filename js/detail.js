@@ -22,6 +22,7 @@ if (movie) {
             director: document.querySelector('.info-item:nth-child(1) .value'),
             cast: document.querySelector('.info-item:nth-child(2) .value'),
             videoContainer: document.querySelector('.video-container'),
+            bookTicketBtn: document.querySelector('#bookTicketBtn'),
         }
 
         // Update movie details
@@ -46,6 +47,17 @@ if (movie) {
                     allowfullscreen
                 ></iframe>
             `
+        }
+
+        // Add click handler for book ticket button
+        if (elements.bookTicketBtn) {
+            elements.bookTicketBtn.addEventListener('click', () => {
+                const bookingUrl = new URL('seatselect.html', window.location.href)
+                bookingUrl.searchParams.set('title', name)
+                bookingUrl.searchParams.set('movie_id', movieId)
+                bookingUrl.searchParams.set('duration', duration)
+                window.location.href = bookingUrl.toString()
+            })
         }
     })
 } else {
